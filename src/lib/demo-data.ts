@@ -44,124 +44,120 @@ export const aaswadMenuData: BranchDetails = {
   swiggyLink: "https://www.swiggy.com",
   pages: [
     {
-      title: "बिर्याणी मेनू",
+      title: "स्पेशल व स्टार्टर्स",
       images: [
         "/biryani1.jpeg",
-        "/biryani2.jpeg",
       ],
       bottomText: "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
       leftColumn: [
         {
-          nameMr: "व्हेज",
+          nameMr: "आजचे स्पेशल (Specials)",
           items: [
-            { nameMr: "शेवभाजी", price: "90", isVeg: true },
-            { nameMr: "सोयाबीन मसाला / फ्राय", price: "90", isVeg: true },
-            { nameMr: "डाळ फ्राय / तडका", price: "90", isVeg: true },
-            { nameMr: "पनीर मसाला", price: "140", isVeg: true },
-            { nameMr: "काजू मसाला", price: "130", isVeg: true },
-          ],
-        },
-        {
-          nameMr: "व्हेज बिर्याणी",
-          items: [
-            { nameMr: "व्हेज दम बिर्याणी", price: "120", isVeg: true },
-            { nameMr: "आस्वाद शाही व्हेज दम बिर्याणी", price: "160", isVeg: true },
-            { nameMr: "सर्व साधारण व्हेज दम बिर्याणी", price: "110/190", isVeg: true },
+            { nameMr: "चिकन टिक्का", price: "240", isVeg: false },
+            { nameMr: "चिकन टिक्का बिर्याणी", price: "180", isVeg: false },
+            { nameMr: "चिकन लॉलीपॉप", price: "180", isVeg: false },
+            { nameMr: "चिकन चिली", price: "160", isVeg: false },
+            { nameMr: "बोनलेस मसाला", price: "160", isVeg: false },
           ],
         },
       ],
       rightColumn: [
         {
-          nameMr: "चिकन बिर्याणी",
+          nameMr: "स्टार्टर्स (Starters)",
           items: [
-            { nameMr: "चिकन दम बिर्याणी", price: "110", isVeg: false },
-            { nameMr: "आस्वाद शहा. चिकन दम बिर्याणी", price: "180", isVeg: false },
-            { nameMr: "सर्व साधारण चिकन दम बिर्याणी", price: "100/180", isVeg: false },
-          ],
-        },
-        {
-          nameMr: "मटण बिर्याणी",
-          items: [
-            { nameMr: "मटण दम बिर्याणी", price: "180", isVeg: false },
-            { nameMr: "आस्वाद शहा. मटण दम बिर्याणी", price: "230", isVeg: false },
-            { nameMr: "सर्व साधारण मटण दम बिर्याणी", price: "230/380", isVeg: false },
+            { nameMr: "बॉईल अंडी प्लेट", price: "30", isVeg: false },
+            { nameMr: "अंडा फ्राय", price: "40", isVeg: false },
+            { nameMr: "ऑम्लेट", price: "60", isVeg: false },
+            { nameMr: "अंडा भुर्जी", price: "75", isVeg: false },
+            { nameMr: "चिकन टिक्का", price: "250", isVeg: false },
+            { nameMr: "चिकन तवा", price: "220", isVeg: false },
+            { nameMr: "चिकन चिली", price: "160", isVeg: false },
           ],
         },
       ],
     },
     {
-      title: "थाळी व कॉम्बो",
+      title: "बिर्याणी व थाळी",
       images: [
         "/biryani2.jpeg",
-        "/biryani1.jpeg",
       ],
       bottomText: "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
       leftColumn: [
         {
-          nameMr: "चिकन थाळी",
+          nameMr: "बिर्याणी मेनू (Biryani)",
           items: [
-            {
-              nameMr: "चिकन थाळी",
-              descriptionMr: "(चिकन मसाला + चिकन फ्राय + रस्सा + सूप + राईस + २ चपाती/भाकरी)",
-              price: "170",
-              isVeg: false,
-            },
-            {
-              nameMr: "आस्वाद शहा. चिकन थाळी",
-              descriptionMr: "(चिकन मसाला + चिकन फ्राय + चिकन बिर्याणी + सूप + २ चपाती/भाकरी + कोशिंबीर + सोलकढी/ताक)",
-              price: "250",
-              isVeg: false,
-            },
-          ],
-        },
-        {
-          nameMr: "मटण थाळी",
-          items: [
-            {
-              nameMr: "मटण थाळी",
-              descriptionMr: "(मटण मसाला + मटण फ्राय + रस्सा + सूप + राईस + २ चपाती/भाकरी)",
-              price: "199",
-              isVeg: false,
-            },
-            {
-              nameMr: "आस्वाद शहा. मटण थाळी",
-              descriptionMr: "(मटण मसाला + मटण फ्राय + मटण बिर्याणी + सूप + २ चपाती/भाकरी + कोशिंबीर + सोलकढी/ताक)",
-              price: "320",
-              isVeg: false,
-            },
-          ],
-        },
-        {
-          nameMr: "बिर्याणी कॉम्बो",
-          items: [
-            {
-              nameMr: "आस्वाद शहा. चिकन दम बिर्याणी",
-              descriptionMr: "(१/२ बिर्याणी, चिकन दम बिर्याणी + २ चपाती/भाकरी + रस्सा + कोशिंबीर + सोलकढी/ताक)",
-              price: "349",
-              isVeg: false,
-            },
-            {
-              nameMr: "आस्वाद शहा. मटण दम बिर्याणी",
-              descriptionMr: "(१/२ बिर्याणी, मटण दम बिर्याणी + २ चपाती/भाकरी + रस्सा + कोशिंबीर + सोलकढी/ताक)",
-              price: "449",
-              isVeg: false,
-            },
+            { nameMr: "चिकन दम बिर्याणी (हाफ)", price: "130", isVeg: false },
+            { nameMr: "चिकन दम बिर्याणी (फुल)", price: "170", isVeg: false },
+            { nameMr: "आस्वाद शाही चिकन बिर्याणी", price: "200", isVeg: false },
+            { nameMr: "मटण दम बिर्याणी", price: "270", isVeg: false },
+            { nameMr: "आस्वाद शाही मटण दम बिर्याणी", price: "300", isVeg: false },
+            { nameMr: "अंडा बिर्याणी", price: "150", isVeg: false },
+            { nameMr: "आस्वाद शाही अंडा बिर्याणी", price: "160", isVeg: false },
           ],
         },
       ],
       rightColumn: [
         {
-          nameMr: "राईस",
+          nameMr: "शाही थाळी (Thali)",
           items: [
-            { nameMr: "प्लेन राईस (हाफ/फुल)", price: "30/60", isVeg: true },
-            { nameMr: "जिरा राईस (हाफ/फुल)", price: "40/80", isVeg: true },
+            { nameMr: "आस्वाद शाही चिकन थाळी", price: "400", isVeg: false },
+            { nameMr: "चिकन टिक्का थाळी", price: "300", isVeg: false },
+            { nameMr: "आस्वाद शाही मटण थाळी", price: "500", isVeg: false },
+          ],
+        },
+      ],
+    },
+    {
+      title: "मेन कोर्स व इतर",
+      images: [
+        "/biryani1.jpeg",
+      ],
+      bottomText: "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
+      leftColumn: [
+        {
+          nameMr: "चिकन मेन कोर्स (Chicken)",
+          items: [
+            { nameMr: "चिकन हंडी (११ पीस)", price: "370", isVeg: false },
+            { nameMr: "चिकन हंडी (२२ पीस)", price: "720", isVeg: false },
+            { nameMr: "चिकन तवा", price: "300", isVeg: false },
           ],
         },
         {
-          nameMr: "रोटी",
+          nameMr: "मटण मेन कोर्स (Mutton)",
           items: [
-            { nameMr: "भाकरी", price: "15", isVeg: true },
+            { nameMr: "मटण मसाला", price: "250", isVeg: false },
+            { nameMr: "मटण हंडी", price: "950", isVeg: false },
+            { nameMr: "मटण रस्सा प्लेट", price: "200", isVeg: false },
+          ],
+        },
+      ],
+      rightColumn: [
+        {
+          nameMr: "चायनीज (Chinese)",
+          items: [
+            { nameMr: "व्हेज भाजी", price: "100", isVeg: true },
+            { nameMr: "शेजवान मसाला", price: "100", isVeg: true },
+            { nameMr: "चिकन ट्रिपल राईस", price: "140", isVeg: false },
+            { nameMr: "पनीर मसाला", price: "190", isVeg: true },
+          ],
+        },
+        {
+          nameMr: "रोटी आणि ब्रेड (Roti)",
+          items: [
             { nameMr: "चपाती", price: "15", isVeg: true },
+            { nameMr: "भाकरी", price: "20", isVeg: true },
+            { nameMr: "मालवणी पराठा", price: "25", isVeg: true },
+            { nameMr: "मसाला पराठा", price: "30", isVeg: true },
+          ],
+        },
+        {
+          nameMr: "राईस आणि एक्स्ट्रा (Rice & Sides)",
+          items: [
+            { nameMr: "प्लेन राईस", price: "30", isVeg: true },
+            { nameMr: "जिरा राईस", price: "45", isVeg: true },
+            { nameMr: "बिर्याणी राईस", price: "80", isVeg: true },
+            { nameMr: "एक्स्ट्रा रस्सा", price: "25", isVeg: false },
+            { nameMr: "एक्स्ट्रा अंडे", price: "20", isVeg: false },
           ],
         },
       ],
