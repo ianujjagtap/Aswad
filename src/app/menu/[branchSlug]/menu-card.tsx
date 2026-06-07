@@ -210,7 +210,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
               {/* 2. Pointed Badge Logo Container */}
               <div className="relative mt-4.5 flex justify-center">
                 {/* Ambient Gold Glow */}
-                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-56 h-20 bg-amber-450/20 rounded-full blur-8xl pointer-events-none" />
+                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-56 h-20 bg-amber-500/5 rounded-full blur-6xl pointer-events-none" />
 
                 <div className="relative w-full max-w-[340px]">
                   {/* SVG Pointed Badge */}
@@ -296,7 +296,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                         style={{
                           color: "#ffd93d",
                           fontFamily: "var(--font-ams-manthan)",
-                          textShadow: "2px 2px 0px #500008, -1px -1px 0px #500008, 0 0 10px rgba(255, 217, 61, 0.85), 0 0 20px rgba(255, 217, 61, 0.5), 0 0 30px rgba(255, 217, 61, 0.3)"
+                          textShadow: "2px 2px 0px #500008, -1px -1px 0px #500008, 0 0 6px rgba(255, 217, 61, 0.6), 0 0 12px rgba(255, 217, 61, 0.3)"
                         }}
                       >
                         Aaasvaad
