@@ -112,8 +112,11 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
 
   const [currentPage, setCurrentPage] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const isProgrammaticScrollRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleScroll = useCallback(() => {
+    if (isProgrammaticScrollRef.current) return;
     if (!scrollRef.current) return;
     const { scrollLeft, clientWidth } = scrollRef.current;
     if (clientWidth > 0) {
@@ -125,8 +128,20 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
   }, [totalPages]);
 
   const goToPage = (idx: number) => {
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    isProgrammaticScrollRef.current = true;
     setCurrentPage(idx);
-    scrollRef.current?.scrollTo({ left: idx * (scrollRef.current?.clientWidth ?? 0), behavior: "smooth" });
+    
+    if (scrollRef.current) {
+      const targetLeft = idx * scrollRef.current.clientWidth;
+      scrollRef.current.scrollTo({ left: targetLeft, behavior: "smooth" });
+    }
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      isProgrammaticScrollRef.current = false;
+    }, 500);
   };
 
   return (
@@ -217,11 +232,11 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                         <stop offset="100%" stopColor="rgba(255,255,255,0)" />
                       </radialGradient>
                       <pattern id="scrollwork" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                        <circle cx="10" cy="10" r="1.5" fill="rgba(255,217,61,0.3)" />
+                        {/* <circle cx="10" cy="10" r="1.5" fill="rgba(255,217,61,0.3)" />
                         <circle cx="0" cy="0" r="1" fill="rgba(255,217,61,0.15)" />
                         <circle cx="20" cy="0" r="1" fill="rgba(255,217,61,0.15)" />
                         <circle cx="0" cy="20" r="1" fill="rgba(255,217,61,0.15)" />
-                        <circle cx="20" cy="20" r="1" fill="rgba(255,217,61,0.15)" />
+                        <circle cx="20" cy="20" r="1" fill="rgba(255,217,61,0.15)" /> */}
                       </pattern>
                     </defs>
 
@@ -262,24 +277,25 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                     />
 
                     {/* Decorative gold dots along inner border */}
-                    <circle cx="40" cy="60" r="2" fill="#ffd93d" opacity="0.4" />
+                    {/* <circle cx="40" cy="60" r="2" fill="#ffd93d" opacity="0.4" />
                     <circle cx="320" cy="60" r="2" fill="#ffd93d" opacity="0.4" />
                     <circle cx="180" cy="14" r="1.5" fill="#ffd93d" opacity="0.3" />
-                    <circle cx="180" cy="106" r="1.5" fill="#ffd93d" opacity="0.3" />
+                    <circle cx="180" cy="106" r="1.5" fill="#ffd93d" opacity="0.3" /> */}
                   </svg>
 
                   {/* Text content overlaid on the badge */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <p className="text-[7px] font-bold text-amber-300/90 uppercase tracking-[0.18em] leading-none mb-1">
+                    <p className="text-[9px] font-bold text-amber-300/90 uppercase leading-none mb-1">
                       {branch.since}
                     </p>
                     
                     {/* Aaasvaad Logo Text with Shahi Biryani at Bottom Right */}
                     <div className="relative flex flex-col items-center justify-center">
                       <h1 
-                        className="text-[2.45rem] font-bold leading-none tracking-[0.05em] pr-2 font-[var(--font-cinzel-dec)]"
+                        className="text-[3.25rem] font-bold leading-none tracking-widest pr-2.2"
                         style={{
                           color: "#ffd93d",
+                          fontFamily: "var(--font-ams-manthan)",
                           textShadow: "2px 2px 0px #500008, -1px -1px 0px #500008, 0 0 8px rgba(255, 217, 61, 0.3)"
                         }}
                       >
@@ -287,7 +303,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                       </h1>
                       
                       <span 
-                        className="absolute bottom-[-10px] right-[-14px] text-[0.82rem] font-normal tracking-widest text-white/95 leading-none whitespace-nowrap font-[var(--font-ams-manthan)]"
+                        className="absolute bottom-[-6px] right-[12px] text-[0.82rem] font-normal tracking-widest text-white/95 leading-none whitespace-nowrap font-[var(--font-ams-manthan)]"
                         style={{
                           textShadow: "1px 1px 2.5px rgba(0,0,0,0.9)"
                         }}
