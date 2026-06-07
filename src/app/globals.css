@@ -7,6 +7,8 @@
   --font-yatra: var(--font-yatra);
   --font-rozha: var(--font-rozha);
   --font-mukta: var(--font-mukta);
+  --font-cinzel: var(--font-cinzel);
+  --font-cinzel-dec: var(--font-cinzel-dec);
 
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));

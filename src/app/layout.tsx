@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_Devanagari, Yatra_One, Rozha_One, Mukta, Amita } from "next/font/google";
+import { Inter, Noto_Sans_Devanagari, Yatra_One, Rozha_One, Mukta, Amita, Cinzel, Cinzel_Decorative } from "next/font/google";
 import localFont from "next/font/local";
 
 import { Toaster } from "@/components/ui/sonner";
@@ -9,6 +9,20 @@ import "./globals.css";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  variable: "--font-cinzel",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
+const cinzelDec = Cinzel_Decorative({
+  subsets: ["latin"],
+  variable: "--font-cinzel-dec",
+  weight: ["400", "700", "900"],
   display: "swap",
 });
 
@@ -73,7 +87,7 @@ export default function RootLayout({
   return (
     <html
       lang="mr"
-      className={`${inter.variable} ${notoDevanagari.variable} ${yatraOne.variable} ${rozhaOne.variable} ${mukta.variable} ${amsManthan.variable} ${amita.variable}`}
+      className={`${inter.variable} ${notoDevanagari.variable} ${yatraOne.variable} ${rozhaOne.variable} ${mukta.variable} ${amsManthan.variable} ${amita.variable} ${cinzel.variable} ${cinzelDec.variable}`}
     >
       <body className="antialiased">
         {children}

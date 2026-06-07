@@ -15,8 +15,8 @@ function MenuPageView({ page }: { page: MenuPageData }) {
           {page.leftColumn.map((category, catIdx) => (
             <div key={catIdx} className="flex flex-col">
               <h3 
-                className="text-[15px] font-bold tracking-wide text-[#ffd93d] pb-1 font-[var(--font-amita)]"
-                style={{ borderBottom: "1.5px solid rgba(255, 217, 61, 0.25)" }}
+                className="text-[14.5px] tracking-wide text-[#ffd93d] pb-0.5 font-[var(--font-yatra)] font-normal"
+                style={{ borderBottom: "1.2px solid rgba(255, 217, 61, 0.25)" }}
               >
                 {category.nameMr}
               </h3>
@@ -24,11 +24,11 @@ function MenuPageView({ page }: { page: MenuPageData }) {
                 {category.items.map((item, itemIdx) => (
                   <div key={itemIdx} className="flex flex-col">
                     <div className="flex items-baseline justify-between text-[11px] font-medium">
-                      <span className="text-stone-100/90 font-[var(--font-mukta)]">{item.nameMr}</span>
+                      <span className="text-stone-100/90 font-[var(--font-mukta)] font-medium">{item.nameMr}</span>
                       <span className="ml-1 text-[#ffd93d] font-bold tabular-nums font-[var(--font-mukta)]">₹{item.price}</span>
                     </div>
                     {item.descriptionMr && (
-                      <span className="text-[8px] leading-relaxed text-stone-400 mt-0.5 pl-0.5 font-[var(--font-mukta)]">
+                      <span className="text-[8.5px] leading-relaxed text-stone-400 mt-0.5 pl-0.5 font-[var(--font-mukta)] font-light">
                         {item.descriptionMr}
                       </span>
                     )}
@@ -44,8 +44,8 @@ function MenuPageView({ page }: { page: MenuPageData }) {
           {page.rightColumn.map((category, catIdx) => (
             <div key={catIdx} className="flex flex-col">
               <h3 
-                className="text-[15px] font-bold tracking-wide text-[#ffd93d] pb-1 font-[var(--font-amita)]"
-                style={{ borderBottom: "1.5px solid rgba(255, 217, 61, 0.25)" }}
+                className="text-[14.5px] tracking-wide text-[#ffd93d] pb-0.5 font-[var(--font-yatra)] font-normal"
+                style={{ borderBottom: "1.2px solid rgba(255, 217, 61, 0.25)" }}
               >
                 {category.nameMr}
               </h3>
@@ -53,11 +53,11 @@ function MenuPageView({ page }: { page: MenuPageData }) {
                 {category.items.map((item, itemIdx) => (
                   <div key={itemIdx} className="flex flex-col">
                     <div className="flex items-baseline justify-between text-[11px] font-medium">
-                      <span className="text-stone-100/90 font-[var(--font-mukta)]">{item.nameMr}</span>
+                      <span className="text-stone-100/90 font-[var(--font-mukta)] font-medium">{item.nameMr}</span>
                       <span className="ml-1 text-[#ffd93d] font-bold tabular-nums font-[var(--font-mukta)]">₹{item.price}</span>
                     </div>
                     {item.descriptionMr && (
-                      <span className="text-[8px] leading-relaxed text-stone-400 mt-0.5 pl-0.5 font-[var(--font-mukta)]">
+                      <span className="text-[8.5px] leading-relaxed text-stone-400 mt-0.5 pl-0.5 font-[var(--font-mukta)] font-light">
                         {item.descriptionMr}
                       </span>
                     )}
@@ -277,9 +277,8 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                     {/* Aaasvaad Logo Text with Shahi Biryani at Bottom Right */}
                     <div className="relative flex flex-col items-center justify-center">
                       <h1 
-                        className="text-[3.25rem] font-normal leading-none tracking-normal pr-4"
+                        className="text-[2.45rem] font-bold leading-none tracking-[0.05em] pr-2 font-[var(--font-cinzel-dec)]"
                         style={{
-                          fontFamily: "var(--font-ams-manthan)",
                           color: "#ffd93d",
                           textShadow: "2px 2px 0px #500008, -1px -1px 0px #500008, 0 0 8px rgba(255, 217, 61, 0.3)"
                         }}
@@ -288,9 +287,8 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                       </h1>
                       
                       <span 
-                        className="absolute bottom-[-4px] right-[4px] text-[0.82rem] font-normal tracking-widest text-white/95 leading-none whitespace-nowrap"
+                        className="absolute bottom-[-10px] right-[-14px] text-[0.82rem] font-normal tracking-widest text-white/95 leading-none whitespace-nowrap font-[var(--font-ams-manthan)]"
                         style={{
-                          fontFamily: "var(--font-ams-manthan)",
                           textShadow: "1px 1px 2.5px rgba(0,0,0,0.9)"
                         }}
                       >
@@ -299,14 +297,14 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                     </div>
                     
                     {/* Centered Veg / Non-veg Indicator Pair */}
-                    <div className="flex items-center justify-center gap-2 mt-2 opacity-95">
+                    {/* <div className="flex items-center justify-center gap-2 mt-2 opacity-95">
                       <span className="inline-flex items-center justify-center border border-emerald-500 p-[1.5px] rounded-[2px] bg-[#1a0003]/60 w-3 h-3">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                       </span>
                       <span className="inline-flex items-center justify-center border border-rose-600 p-[1.5px] rounded-[2px] bg-[#1a0003]/60 w-3 h-3">
                         <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
                       </span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
