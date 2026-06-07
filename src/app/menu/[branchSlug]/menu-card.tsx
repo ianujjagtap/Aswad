@@ -4,72 +4,8 @@ import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { aaswadMenuData, type BranchDetails, type MenuPageData } from "@/lib/demo-data";
 
-interface ThemeConfig {
-  id: string;
-  name: string;
-  previewColor: string;
-  pageBg: string;
-  cardBg: string;
-  cardInnerBg: string;
-  plaqueBg: string;
-  activeTabBg: string;
-  activeTabText: string;
-  bottomRibbonBg: string;
-}
-
-const THEMES: Record<string, ThemeConfig> = {
-  crimson: {
-    id: "crimson",
-    name: "रॉयल क्रिम्सन (Crimson)",
-    previewColor: "#a80a18",
-    pageBg: "linear-gradient(175deg, #1a0003 0%, #3d0208 25%, #5a0a14 50%, #3d0208 75%, #1a0003 100%)",
-    cardBg: "linear-gradient(180deg, #4a030b, #2a0106)",
-    cardInnerBg: "linear-gradient(180deg, #54040c 0%, #3d0208 40%, #2a0106 100%)",
-    plaqueBg: "#a80a18",
-    activeTabBg: "linear-gradient(135deg, #ffd93d, #f0c020)",
-    activeTabText: "#1a0003",
-    bottomRibbonBg: "linear-gradient(135deg, rgba(168, 10, 24, 0.75), rgba(100, 5, 12, 0.75))",
-  },
-  emerald: {
-    id: "emerald",
-    name: "रॉयल एमराल्ड (Emerald)",
-    previewColor: "#055e34",
-    pageBg: "linear-gradient(175deg, #01140a 0%, #032b17 25%, #064726 50%, #032b17 75%, #01140a 100%)",
-    cardBg: "linear-gradient(180deg, #04351d, #021a0e)",
-    cardInnerBg: "linear-gradient(180deg, #054124 0%, #032c18 40%, #021a0e 100%)",
-    plaqueBg: "#055e34",
-    activeTabBg: "linear-gradient(135deg, #ffd93d, #f0c020)",
-    activeTabText: "#01140a",
-    bottomRibbonBg: "linear-gradient(135deg, rgba(5, 94, 52, 0.75), rgba(2, 44, 24, 0.75))",
-  },
-  sapphire: {
-    id: "sapphire",
-    name: "रॉयल सॅफायर (Sapphire)",
-    previewColor: "#083e66",
-    pageBg: "linear-gradient(175deg, #010a14 0%, #03172b 25%, #062647 50%, #03172b 75%, #010a14 100%)",
-    cardBg: "linear-gradient(180deg, #04243b, #02121e)",
-    cardInnerBg: "linear-gradient(180deg, #052d47 0%, #031e30 40%, #02121e 100%)",
-    plaqueBg: "#083e66",
-    activeTabBg: "linear-gradient(135deg, #ffd93d, #f0c020)",
-    activeTabText: "#010a14",
-    bottomRibbonBg: "linear-gradient(135deg, rgba(8, 62, 102, 0.75), rgba(4, 30, 48, 0.75))",
-  },
-  charcoal: {
-    id: "charcoal",
-    name: "रॉयल चारकोल (Charcoal)",
-    previewColor: "#262626",
-    pageBg: "linear-gradient(175deg, #0b0b0b 0%, #151515 25%, #222222 50%, #151515 75%, #0b0b0b 100%)",
-    cardBg: "linear-gradient(180deg, #1f1f1f, #121212)",
-    cardInnerBg: "linear-gradient(180deg, #262626 0%, #1a1a1a 40%, #121212 100%)",
-    plaqueBg: "#2d2d2d",
-    activeTabBg: "linear-gradient(135deg, #ffd93d, #f0c020)",
-    activeTabText: "#0b0b0b",
-    bottomRibbonBg: "linear-gradient(135deg, rgba(51, 51, 51, 0.75), rgba(26, 26, 26, 0.75))",
-  }
-};
-
 /* ── Single Menu Page (two-column flyer layout) ─────────────────────── */
-function MenuPageView({ page, theme }: { page: MenuPageData; theme: ThemeConfig }) {
+function MenuPageView({ page }: { page: MenuPageData }) {
   return (
     <>
       <div className="grid grid-cols-[1.15fr_0.85fr] gap-x-3 pb-2">
@@ -153,9 +89,9 @@ function MenuPageView({ page, theme }: { page: MenuPageData; theme: ThemeConfig 
       {/* Bottom Ribbon */}
       {page.bottomText && (
         <div 
-          className="mt-3 rounded-lg py-2 px-3 text-center transition-all duration-500"
+          className="mt-3 rounded-lg py-2 px-3 text-center"
           style={{
-            background: theme.bottomRibbonBg,
+            background: "linear-gradient(135deg, rgba(168, 10, 24, 0.75), rgba(100, 5, 12, 0.75))",
             border: "1px solid rgba(255, 217, 61, 0.2)",
             boxShadow: "inset 0 1px 6px rgba(255,255,255,0.06)",
           }}
@@ -174,11 +110,8 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
   const pages = branch.pages;
   const totalPages = pages.length;
 
-  const [activeThemeId, setActiveThemeId] = useState<string>("crimson");
   const [currentPage, setCurrentPage] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  const theme = THEMES[activeThemeId] || THEMES.crimson;
 
   const handleScroll = useCallback(() => {
     if (!scrollRef.current) return;
@@ -198,9 +131,9 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
 
   return (
     <div 
-      className="relative min-h-screen pb-24 font-[var(--font-mukta)] antialiased select-none text-white transition-all duration-500"
+      className="relative min-h-screen pb-24 font-[var(--font-mukta)] antialiased select-none text-white"
       style={{
-        background: theme.pageBg
+        background: "linear-gradient(175deg, #1a0003 0%, #3d0208 25%, #5a0a14 50%, #3d0208 75%, #1a0003 100%)"
       }}
     >
       {/* Mandala Overlay */}
@@ -216,19 +149,19 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
         
         {/* ═══ Triple-layered Gold Border Frame ═══ */}
         <div 
-          className="relative rounded-2xl p-[3px] transition-all duration-500"
+          className="relative rounded-2xl p-[3px]"
           style={{
             background: "linear-gradient(135deg, #ffd93d 0%, #b8860b 25%, #ffd93d 50%, #b8860b 75%, #ffd93d 100%)",
             boxShadow: "0 0 25px rgba(255, 217, 61, 0.15), 0 8px 32px rgba(0,0,0,0.5)",
           }}
         >
           <div 
-            className="relative rounded-xl p-0.5 transition-all duration-500"
-            style={{ background: theme.cardBg }}
+            className="relative rounded-xl p-0.5"
+            style={{ background: "linear-gradient(180deg, #4a030b, #2a0106)" }}
           >
             <div 
-              className="relative rounded-lg px-2.5 pt-2.5 pb-3 overflow-hidden transition-all duration-500"
-              style={{ background: theme.cardInnerBg }}
+              className="relative rounded-lg px-2.5 pt-2.5 pb-3 overflow-hidden"
+              style={{ background: "linear-gradient(180deg, #54040c 0%, #3d0208 40%, #2a0106 100%)" }}
             >
               {/* Decorative SVG Corner Ornaments */}
               <div className="absolute top-2 left-2 w-6 h-6">
@@ -259,31 +192,8 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                 <span>मो. {branch.phone}</span>
               </div>
 
-              {/* Premium Color Theme Switcher (hidden for now)
-              <div className="mt-2.5 flex items-center justify-center gap-2">
-                <span className="text-[8px] font-bold text-amber-500/40 uppercase tracking-widest">थीम:</span>
-                <div className="flex gap-2">
-                  {Object.values(THEMES).map((t) => (
-                    <button
-                      key={t.id}
-                      onClick={() => setActiveThemeId(t.id)}
-                      className={`relative w-4.5 h-4.5 rounded-full border transition-all duration-300 hover:scale-110 active:scale-95 ${
-                        activeThemeId === t.id 
-                          ? "border-amber-400 scale-105 shadow-[0_0_8px_rgba(255,217,61,0.6)]" 
-                          : "border-amber-500/20 opacity-60 hover:opacity-100"
-                      }`}
-                      style={{
-                        background: t.previewColor,
-                      }}
-                      title={t.name}
-                    />
-                  ))}
-                </div>
-              </div>
-              */}
-
               {/* 2. Pointed Badge Logo Container */}
-              <div className="relative mt-3 flex justify-center">
+              <div className="relative mt-4.5 flex justify-center">
                 {/* Ambient Gold Glow */}
                 <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto w-56 h-20 bg-amber-500/8 rounded-full blur-3xl pointer-events-none" />
 
@@ -334,8 +244,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                     {/* Inner fill shape */}
                     <polygon
                       points="18,60 54,16 306,16 342,60 306,104 54,104"
-                      fill={theme.plaqueBg}
-                      className="transition-all duration-500"
+                      fill="#a80a18"
                     />
 
                     {/* Inner white accent border */}
@@ -361,33 +270,36 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
 
                   {/* Text content overlaid on the badge */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <p className="text-[7px] font-bold text-amber-300/90 uppercase tracking-[0.18em] leading-none mb-0.5">
+                    <p className="text-[7px] font-bold text-amber-300/90 uppercase tracking-[0.18em] leading-none mb-1">
                       {branch.since}
                     </p>
                     
-                    <h1 
-                      className="text-[3rem] font-normal leading-none tracking-normal"
-                      style={{
-                        fontFamily: "var(--font-ams-manthan)",
-                        color: "#ffd93d",
-                        textShadow: "2px 2px 0px #500008, -1px -1px 0px #500008, 0 0 8px rgba(255, 217, 61, 0.3)"
-                      }}
-                    >
-                      {"Aaasvaad"}
-                    </h1>
-                    
-                    <p 
-                      className="text-[0.95rem] font-normal tracking-widest text-white/95 leading-none mt-0.5"
-                      style={{
-                        fontFamily: "var(--font-ams-manthan)",
-                        textShadow: "1px 1px 2px rgba(0,0,0,0.7)"
-                      }}
-                    >
-                      शाही बिर्याणी
-                    </p>
+                    {/* Aaasvaad Logo Text with Shahi Biryani at Bottom Right */}
+                    <div className="relative flex flex-col items-center justify-center">
+                      <h1 
+                        className="text-[3.25rem] font-normal leading-none tracking-normal pr-4"
+                        style={{
+                          fontFamily: "var(--font-ams-manthan)",
+                          color: "#ffd93d",
+                          textShadow: "2px 2px 0px #500008, -1px -1px 0px #500008, 0 0 8px rgba(255, 217, 61, 0.3)"
+                        }}
+                      >
+                        Aaasvaad
+                      </h1>
+                      
+                      <span 
+                        className="absolute bottom-[-4px] right-[4px] text-[0.82rem] font-normal tracking-widest text-white/95 leading-none whitespace-nowrap"
+                        style={{
+                          fontFamily: "var(--font-ams-manthan)",
+                          textShadow: "1px 1px 2.5px rgba(0,0,0,0.9)"
+                        }}
+                      >
+                        शाही बिर्याणी
+                      </span>
+                    </div>
                     
                     {/* Centered Veg / Non-veg Indicator Pair */}
-                    <div className="flex items-center justify-center gap-2 mt-1.5 opacity-95">
+                    <div className="flex items-center justify-center gap-2 mt-2 opacity-95">
                       <span className="inline-flex items-center justify-center border border-emerald-500 p-[1.5px] rounded-[2px] bg-[#1a0003]/60 w-3 h-3">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                       </span>
@@ -408,9 +320,9 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                       onClick={() => goToPage(idx)}
                       className="relative px-4 py-1.5 text-[10.5px] font-bold whitespace-nowrap transition-all duration-300 font-[var(--font-amita)]"
                       style={{
-                        color: currentPage === idx ? theme.activeTabText : "rgba(255, 217, 61, 0.7)",
+                        color: currentPage === idx ? "#1a0003" : "rgba(255, 217, 61, 0.7)",
                         background: currentPage === idx 
-                          ? theme.activeTabBg 
+                          ? "linear-gradient(135deg, #ffd93d, #f0c020)" 
                           : "transparent",
                         border: currentPage === idx 
                           ? "1px solid #ffd93d"
@@ -436,7 +348,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
               >
                 {pages.map((page, idx) => (
                   <div key={idx} className="w-full shrink-0 snap-start snap-always">
-                    <MenuPageView page={page} theme={theme} />
+                    <MenuPageView page={page} />
                   </div>
                 ))}
               </div>
@@ -472,7 +384,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
 
       {/* ── Fixed Sticky Order Footer ──────────────────────────────────── */}
       <div 
-        className="fixed inset-x-0 bottom-0 z-40 px-4 py-3 transition-all duration-500"
+        className="fixed inset-x-0 bottom-0 z-40 px-4 py-3"
         style={{
           background: "linear-gradient(180deg, rgba(26, 0, 3, 0.95), rgba(26, 0, 3, 1))",
           borderTop: "1px solid rgba(255, 217, 61, 0.1)",
