@@ -8,27 +8,40 @@ import { aaswadMenuData, type BranchDetails, type MenuPageData } from "@/lib/dem
 function MenuPageView({ page }: { page: MenuPageData }) {
   return (
     <>
-      <div className="grid grid-cols-[1.15fr_0.85fr] gap-x-3 pb-2">
+      <div className="grid grid-cols-[1.12fr_auto_0.88fr] gap-x-2 pb-2">
         
         {/* LEFT COLUMN */}
         <div className="flex flex-col gap-4">
           {page.leftColumn.map((category, catIdx) => (
             <div key={catIdx} className="flex flex-col">
-              <h3 
-                className="text-[14.5px] tracking-wide text-[#ffd93d] pb-0.5 font-[var(--font-yatra)] font-normal"
-                style={{ borderBottom: "1.2px solid rgba(255, 217, 61, 0.25)" }}
-              >
-                {category.nameMr}
-              </h3>
-              <div className="mt-2 flex flex-col gap-2">
+              <div className="flex flex-col pb-0.5">
+                <h3 className="text-[14.5px] tracking-wide text-[#ffd93d] font-[var(--font-yatra)] font-normal">
+                  {category.nameMr}
+                </h3>
+                <div 
+                  className="h-[1.2px] mt-0.5 w-full" 
+                  style={{
+                    background: "linear-gradient(90deg, rgba(255, 217, 61, 0.6) 0%, rgba(255, 217, 61, 0.1) 100%)"
+                  }}
+                />
+              </div>
+              
+              <div className="mt-2.5 flex flex-col gap-2.5">
                 {category.items.map((item, itemIdx) => (
                   <div key={itemIdx} className="flex flex-col">
-                    <div className="flex items-baseline justify-between text-[11px] font-medium">
-                      <span className="text-stone-100/90 font-[var(--font-mukta)] font-medium">{item.nameMr}</span>
-                      <span className="ml-1 text-[#ffd93d] font-bold tabular-nums font-[var(--font-mukta)]">₹{item.price}</span>
+                    <div className="flex items-baseline justify-between text-[11px] leading-tight">
+                      <div className="flex items-start gap-1">
+                        <span className="text-[#ffd93d] text-[7px] mt-[3px] select-none">♦</span>
+                        <span className="text-[#FFF8E7] font-[var(--font-mukta)] font-semibold tracking-wide">
+                          {item.nameMr}
+                        </span>
+                      </div>
+                      <span className="ml-1.5 text-[#ffd93d] font-bold tabular-nums font-[var(--font-mukta)]">
+                        ₹{item.price}
+                      </span>
                     </div>
                     {item.descriptionMr && (
-                      <span className="text-[8.5px] leading-relaxed text-stone-400 mt-0.5 pl-0.5 font-[var(--font-mukta)] font-light">
+                      <span className="text-[8.5px] leading-relaxed text-stone-300/85 mt-0.5 pl-2.5 font-[var(--font-mukta)] font-light">
                         {item.descriptionMr}
                       </span>
                     )}
@@ -39,25 +52,47 @@ function MenuPageView({ page }: { page: MenuPageData }) {
           ))}
         </div>
 
+        {/* MIDDLE GOLD SEPARATOR */}
+        <div className="relative flex flex-col items-center justify-center select-none py-1.5">
+          <div className="w-[1.2px] h-full bg-gradient-to-b from-transparent via-amber-500/20 to-transparent" />
+          <div 
+            className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rotate-45 border border-[#ffd93d]/40 bg-[#2d0206]"
+            style={{ boxShadow: "0 0 4px rgba(255, 217, 61, 0.15)" }}
+          />
+        </div>
+
         {/* RIGHT COLUMN */}
         <div className="flex flex-col gap-4">
           {page.rightColumn.map((category, catIdx) => (
             <div key={catIdx} className="flex flex-col">
-              <h3 
-                className="text-[14.5px] tracking-wide text-[#ffd93d] pb-0.5 font-[var(--font-yatra)] font-normal"
-                style={{ borderBottom: "1.2px solid rgba(255, 217, 61, 0.25)" }}
-              >
-                {category.nameMr}
-              </h3>
-              <div className="mt-2 flex flex-col gap-2">
+              <div className="flex flex-col pb-0.5">
+                <h3 className="text-[14.5px] tracking-wide text-[#ffd93d] font-[var(--font-yatra)] font-normal">
+                  {category.nameMr}
+                </h3>
+                <div 
+                  className="h-[1.2px] mt-0.5 w-full" 
+                  style={{
+                    background: "linear-gradient(90deg, rgba(255, 217, 61, 0.6) 0%, rgba(255, 217, 61, 0.1) 100%)"
+                  }}
+                />
+              </div>
+
+              <div className="mt-2.5 flex flex-col gap-2.5">
                 {category.items.map((item, itemIdx) => (
                   <div key={itemIdx} className="flex flex-col">
-                    <div className="flex items-baseline justify-between text-[11px] font-medium">
-                      <span className="text-stone-100/90 font-[var(--font-mukta)] font-medium">{item.nameMr}</span>
-                      <span className="ml-1 text-[#ffd93d] font-bold tabular-nums font-[var(--font-mukta)]">₹{item.price}</span>
+                    <div className="flex items-baseline justify-between text-[11px] leading-tight">
+                      <div className="flex items-start gap-1">
+                        <span className="text-[#ffd93d] text-[7px] mt-[3px] select-none">♦</span>
+                        <span className="text-[#FFF8E7] font-[var(--font-mukta)] font-semibold tracking-wide">
+                          {item.nameMr}
+                        </span>
+                      </div>
+                      <span className="ml-1.5 text-[#ffd93d] font-bold tabular-nums font-[var(--font-mukta)]">
+                        ₹{item.price}
+                      </span>
                     </div>
                     {item.descriptionMr && (
-                      <span className="text-[8.5px] leading-relaxed text-stone-400 mt-0.5 pl-0.5 font-[var(--font-mukta)] font-light">
+                      <span className="text-[8.5px] leading-relaxed text-stone-300/85 mt-0.5 pl-2.5 font-[var(--font-mukta)] font-light">
                         {item.descriptionMr}
                       </span>
                     )}
@@ -68,7 +103,7 @@ function MenuPageView({ page }: { page: MenuPageData }) {
           ))}
 
           {/* Biryani food photos */}
-          <div className="relative mt-3 flex items-center justify-center gap-3">
+          <div className="relative mt-3.5 flex items-center justify-center gap-3">
             {page.images.map((imgUrl, imgIdx) => (
               <div 
                 key={imgIdx}
@@ -89,7 +124,7 @@ function MenuPageView({ page }: { page: MenuPageData }) {
       {/* Bottom Ribbon */}
       {page.bottomText && (
         <div 
-          className="mt-3 rounded-lg py-2 px-3 text-center"
+          className="mt-3.5 rounded-lg py-2 px-3 text-center"
           style={{
             background: "linear-gradient(135deg, rgba(168, 10, 24, 0.75), rgba(100, 5, 12, 0.75))",
             border: "1px solid rgba(255, 217, 61, 0.2)",
@@ -227,6 +262,11 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                         <stop offset="75%" stopColor="#daa520" />
                         <stop offset="100%" stopColor="#ffd93d" />
                       </linearGradient>
+                      <linearGradient id="plaqueBg" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#c51323" />
+                        <stop offset="40%" stopColor="#a80a18" />
+                        <stop offset="100%" stopColor="#6e040c" />
+                      </linearGradient>
                       <radialGradient id="badgeGlow" cx="50%" cy="40%" r="60%">
                         <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
                         <stop offset="100%" stopColor="rgba(255,255,255,0)" />
@@ -259,7 +299,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                     {/* Inner fill shape */}
                     <polygon
                       points="18,60 54,16 306,16 342,60 306,104 54,104"
-                      fill="#a80a18"
+                      fill="url(#plaqueBg)"
                     />
 
                     {/* Inner white accent border */}
@@ -303,7 +343,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                       </h1>
                       
                       <span 
-                        className="absolute bottom-[-6px] right-[12px] text-[0.82rem] font-normal tracking-widest text-white/95 leading-none whitespace-nowrap font-[var(--font-ams-manthan)]"
+                        className="absolute bottom-[-6px] font-semibold right-[12px] text-[0.82rem] text-white/95 leading-none whitespace-nowrap"
                         style={{
                           textShadow: "1px 1px 2.5px rgba(0,0,0,0.9)"
                         }}
@@ -332,18 +372,19 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                     <button
                       key={idx}
                       onClick={() => goToPage(idx)}
-                      className="relative px-4 py-1.5 text-[10.5px] font-bold whitespace-nowrap transition-all duration-300 font-[var(--font-amita)]"
+                      className="relative px-4 py-1.5 text-[11.5px] font-normal whitespace-nowrap transition-all duration-300"
                       style={{
-                        color: currentPage === idx ? "#1a0003" : "rgba(255, 217, 61, 0.7)",
+                        fontFamily: "var(--font-yatra)",
+                        color: currentPage === idx ? "#1a0003" : "rgba(255, 217, 61, 0.85)",
                         background: currentPage === idx 
-                          ? "linear-gradient(135deg, #ffd93d, #f0c020)" 
-                          : "transparent",
+                          ? "linear-gradient(135deg, #ffd93d, #daa520)" 
+                          : "rgba(80, 0, 8, 0.45)",
                         border: currentPage === idx 
                           ? "1px solid #ffd93d"
-                          : "1px solid rgba(255, 217, 61, 0.15)",
-                        borderRadius: "6px",
+                          : "1px solid rgba(255, 217, 61, 0.22)",
+                        borderRadius: "7px",
                         boxShadow: currentPage === idx 
-                          ? "0 2px 10px rgba(255, 217, 61, 0.25)"
+                          ? "0 2.5px 10px rgba(255, 217, 61, 0.35)"
                           : "none",
                       }}
                     >
