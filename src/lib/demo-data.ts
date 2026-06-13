@@ -15,6 +15,7 @@ export interface MenuCategory {
 
 export interface MenuPageData {
   title: string;
+  category?: "veg" | "non-veg";
   leftColumn: MenuCategory[];
   rightColumn: MenuCategory[];
   bottomText?: string;
@@ -44,7 +45,45 @@ export const aaswadMenuData: BranchDetails = {
   swiggyLink: "https://www.swiggy.com",
   pages: [
     {
-      title: "स्पेशल व स्टार्टर्स",
+      title: "शाकाहारी मेनू",
+      category: "veg",
+      images: [
+        "/biryani2.jpeg",
+      ],
+      bottomText: "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
+      leftColumn: [
+        {
+          nameMr: "चायनीज स्पेशल (Chinese)",
+          items: [
+            { nameMr: "व्हेज भाजी", price: "100", isVeg: true },
+            { nameMr: "शेजवान मसाला", price: "100", isVeg: true },
+            { nameMr: "पनीर मसाला", price: "190", isVeg: true },
+          ],
+        },
+        {
+          nameMr: "राईस (Rice)",
+          items: [
+            { nameMr: "प्लेन राईस", price: "30", isVeg: true },
+            { nameMr: "जिरा राईस", price: "45", isVeg: true },
+            { nameMr: "बिर्याणी राईस", price: "80", isVeg: true },
+          ],
+        },
+      ],
+      rightColumn: [
+        {
+          nameMr: "रोटी आणि ब्रेड (Roti)",
+          items: [
+            { nameMr: "चपाती", price: "15", isVeg: true },
+            { nameMr: "भाकरी", price: "20", isVeg: true },
+            { nameMr: "मालवणी पराठा", price: "25", isVeg: true },
+            { nameMr: "मसाला पराठा", price: "30", isVeg: true },
+          ],
+        },
+      ],
+    },
+    {
+      title: "स्टार्टर्स व थाळी",
+      category: "non-veg",
       images: [
         "/biryani1.jpeg",
       ],
@@ -58,6 +97,14 @@ export const aaswadMenuData: BranchDetails = {
             { nameMr: "चिकन लॉलीपॉप", price: "180", isVeg: false },
             { nameMr: "चिकन चिली", price: "160", isVeg: false },
             { nameMr: "बोनलेस मसाला", price: "160", isVeg: false },
+          ],
+        },
+        {
+          nameMr: "शाही थाळी (Thali)",
+          items: [
+            { nameMr: "आस्वाद शाही चिकन थाळी", price: "400", isVeg: false },
+            { nameMr: "चिकन टिक्का थाळी", price: "300", isVeg: false },
+            { nameMr: "आस्वाद शाही मटण थाळी", price: "500", isVeg: false },
           ],
         },
       ],
@@ -77,9 +124,10 @@ export const aaswadMenuData: BranchDetails = {
       ],
     },
     {
-      title: "बिर्याणी व थाळी",
+      title: "बिर्याणी व मेन कोर्स",
+      category: "non-veg",
       images: [
-        "/biryani2.jpeg",
+        "/biryani1.jpeg",
       ],
       bottomText: "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
       leftColumn: [
@@ -98,23 +146,6 @@ export const aaswadMenuData: BranchDetails = {
       ],
       rightColumn: [
         {
-          nameMr: "शाही थाळी (Thali)",
-          items: [
-            { nameMr: "आस्वाद शाही चिकन थाळी", price: "400", isVeg: false },
-            { nameMr: "चिकन टिक्का थाळी", price: "300", isVeg: false },
-            { nameMr: "आस्वाद शाही मटण थाळी", price: "500", isVeg: false },
-          ],
-        },
-      ],
-    },
-    {
-      title: "मेन कोर्स व इतर",
-      images: [
-        "/biryani1.jpeg",
-      ],
-      bottomText: "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
-      leftColumn: [
-        {
           nameMr: "चिकन मेन कोर्स (Chicken)",
           items: [
             { nameMr: "चिकन हंडी (११ पीस)", price: "370", isVeg: false },
@@ -130,32 +161,10 @@ export const aaswadMenuData: BranchDetails = {
             { nameMr: "मटण रस्सा प्लेट", price: "200", isVeg: false },
           ],
         },
-      ],
-      rightColumn: [
         {
-          nameMr: "चायनीज (Chinese)",
+          nameMr: "चायनीज व एक्स्ट्रा (Chinese & Sides)",
           items: [
-            { nameMr: "व्हेज भाजी", price: "100", isVeg: true },
-            { nameMr: "शेजवान मसाला", price: "100", isVeg: true },
             { nameMr: "चिकन ट्रिपल राईस", price: "140", isVeg: false },
-            { nameMr: "पनीर मसाला", price: "190", isVeg: true },
-          ],
-        },
-        {
-          nameMr: "रोटी आणि ब्रेड (Roti)",
-          items: [
-            { nameMr: "चपाती", price: "15", isVeg: true },
-            { nameMr: "भाकरी", price: "20", isVeg: true },
-            { nameMr: "मालवणी पराठा", price: "25", isVeg: true },
-            { nameMr: "मसाला पराठा", price: "30", isVeg: true },
-          ],
-        },
-        {
-          nameMr: "राईस आणि एक्स्ट्रा (Rice & Sides)",
-          items: [
-            { nameMr: "प्लेन राईस", price: "30", isVeg: true },
-            { nameMr: "जिरा राईस", price: "45", isVeg: true },
-            { nameMr: "बिर्याणी राईस", price: "80", isVeg: true },
             { nameMr: "एक्स्ट्रा रस्सा", price: "25", isVeg: false },
             { nameMr: "एक्स्ट्रा अंडे", price: "20", isVeg: false },
           ],
