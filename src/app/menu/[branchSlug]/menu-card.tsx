@@ -8,14 +8,14 @@ import { aaswadMenuData, type BranchDetails, type MenuPageData } from "@/lib/dem
 function MenuPageView({ page }: { page: MenuPageData }) {
   return (
     <>
-      <div className="grid grid-cols-[1.12fr_auto_0.88fr] gap-x-2 pb-2">
+      <div className="grid grid-cols-[1.12fr_auto_0.88fr] gap-x-2 pb-1">
         
         {/* LEFT COLUMN */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2.5">
           {page.leftColumn.map((category, catIdx) => (
             <div key={catIdx} className="flex flex-col">
               <div className="flex flex-col pb-0.5">
-                <h3 className="text-[14.5px] tracking-wide text-[#ffd93d] font-[var(--font-yatra)] font-normal">
+                <h3 className="text-[13px] tracking-wide text-[#ffd93d] font-[var(--font-yatra)] font-normal">
                   {category.nameMr}
                 </h3>
                 <div 
@@ -26,22 +26,22 @@ function MenuPageView({ page }: { page: MenuPageData }) {
                 />
               </div>
               
-              <div className="mt-2.5 flex flex-col gap-2.5">
+              <div className="mt-2 flex flex-col gap-1.5">
                 {category.items.map((item, itemIdx) => (
                   <div key={itemIdx} className="flex flex-col">
-                    <div className="flex items-baseline justify-between text-[11px] leading-tight">
+                    <div className="flex items-baseline justify-between text-[10px] leading-tight">
                       <div className="flex items-start gap-1">
                         <span className="text-[#ffd93d] text-[7px] mt-[3px] select-none">♦</span>
-                        <span className="text-[#FFF8E7] font-[var(--font-mukta)] font-semibold tracking-wide">
+                        <span className="text-[#FFF8E7] font-[var(--font-devanagari)] font-semibold tracking-wide">
                           {item.nameMr}
                         </span>
                       </div>
-                      <span className="ml-1.5 text-[#ffd93d] font-bold tabular-nums font-[var(--font-mukta)]">
+                      <span className="ml-1.5 text-[#ffd93d] font-bold tabular-nums font-[var(--font-devanagari)]">
                         ₹{item.price}
                       </span>
                     </div>
                     {item.descriptionMr && (
-                      <span className="text-[8.5px] leading-relaxed text-stone-300/85 mt-0.5 pl-2.5 font-[var(--font-mukta)] font-light">
+                      <span className="text-[8.5px] leading-relaxed text-stone-300/85 mt-0.5 pl-2.5 font-[var(--font-devanagari)] font-light">
                         {item.descriptionMr}
                       </span>
                     )}
@@ -62,11 +62,11 @@ function MenuPageView({ page }: { page: MenuPageData }) {
         </div>
 
         {/* RIGHT COLUMN */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2.5">
           {page.rightColumn.map((category, catIdx) => (
             <div key={catIdx} className="flex flex-col">
               <div className="flex flex-col pb-0.5">
-                <h3 className="text-[14.5px] tracking-wide text-[#ffd93d] font-[var(--font-yatra)] font-normal">
+                <h3 className="text-[13px] tracking-wide text-[#ffd93d] font-[var(--font-yatra)] font-normal">
                   {category.nameMr}
                 </h3>
                 <div 
@@ -77,22 +77,22 @@ function MenuPageView({ page }: { page: MenuPageData }) {
                 />
               </div>
 
-              <div className="mt-2.5 flex flex-col gap-2.5">
+              <div className="mt-2 flex flex-col gap-1.5">
                 {category.items.map((item, itemIdx) => (
                   <div key={itemIdx} className="flex flex-col">
-                    <div className="flex items-baseline justify-between text-[11px] leading-tight">
+                    <div className="flex items-baseline justify-between text-[10px] leading-tight">
                       <div className="flex items-start gap-1">
                         <span className="text-[#ffd93d] text-[7px] mt-[3px] select-none">♦</span>
-                        <span className="text-[#FFF8E7] font-[var(--font-mukta)] font-semibold tracking-wide">
+                        <span className="text-[#FFF8E7] font-[var(--font-devanagari)] font-semibold tracking-wide">
                           {item.nameMr}
                         </span>
                       </div>
-                      <span className="ml-1.5 text-[#ffd93d] font-bold tabular-nums font-[var(--font-mukta)]">
+                      <span className="ml-1.5 text-[#ffd93d] font-bold tabular-nums font-[var(--font-devanagari)]">
                         ₹{item.price}
                       </span>
                     </div>
                     {item.descriptionMr && (
-                      <span className="text-[8.5px] leading-relaxed text-stone-300/85 mt-0.5 pl-2.5 font-[var(--font-mukta)] font-light">
+                      <span className="text-[8.5px] leading-relaxed text-stone-300/85 mt-0.5 pl-2.5 font-[var(--font-devanagari)] font-light">
                         {item.descriptionMr}
                       </span>
                     )}
@@ -103,18 +103,18 @@ function MenuPageView({ page }: { page: MenuPageData }) {
           ))}
 
           {/* Biryani food photos */}
-          <div className="relative mt-3.5 flex items-center justify-center gap-3">
+          <div className="relative mt-2.5 flex items-center justify-center gap-2">
             {page.images.map((imgUrl, imgIdx) => (
               <div 
                 key={imgIdx}
-                className="relative size-[72px] overflow-hidden rounded-full shadow-lg"
+                className="relative size-[64px] overflow-hidden rounded-full shadow-lg"
                 style={{
-                  border: "2.5px solid #ffd93d",
-                  boxShadow: "0 0 12px rgba(255, 217, 61, 0.3), 0 4px 12px rgba(0,0,0,0.4)",
+                  border: "2px solid #ffd93d",
+                  boxShadow: "0 0 10px rgba(255, 217, 61, 0.3)",
                   transform: `rotate(${imgIdx % 2 === 0 ? "3deg" : "-3deg"})`
                 }}
               >
-                <Image src={imgUrl} alt="Biryani" fill className="object-cover" sizes="72px" />
+                <Image src={imgUrl} alt="Biryani" fill className="object-cover" sizes="64px" />
               </div>
             ))}
           </div>
@@ -124,14 +124,14 @@ function MenuPageView({ page }: { page: MenuPageData }) {
       {/* Bottom Ribbon */}
       {page.bottomText && (
         <div 
-          className="mt-3.5 rounded-lg py-2 px-3 text-center"
+          className="mt-2.5 rounded-lg py-1.5 px-3 text-center"
           style={{
             background: "linear-gradient(135deg, rgba(168, 10, 24, 0.75), rgba(100, 5, 12, 0.75))",
             border: "1px solid rgba(255, 217, 61, 0.2)",
             boxShadow: "inset 0 1px 6px rgba(255,255,255,0.06)",
           }}
         >
-          <p className="text-[9.5px] font-bold text-amber-200/90 tracking-wide font-[var(--font-mukta)]">
+          <p className="text-[9.5px] font-bold text-amber-200/90 tracking-wide font-[var(--font-devanagari)]">
             {page.bottomText}
           </p>
         </div>
@@ -190,7 +190,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
 
   return (
     <div 
-      className="relative min-h-screen pb-24 font-[var(--font-mukta)] antialiased select-none text-white"
+      className="relative min-h-screen pb-24 font-[var(--font-devanagari)] antialiased select-none text-white"
       style={{
         background: "linear-gradient(175deg, #1a0003 0%, #3d0208 25%, #5a0a14 50%, #3d0208 75%, #1a0003 100%)"
       }}
@@ -204,7 +204,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
         }}
       />
 
-      <div className="mx-auto max-w-[440px] px-2.5 py-4">
+      <div className="mx-auto max-w-[440px] px-2.5 py-2">
         
         {/* ═══ Triple-layered Gold Border Frame ═══ */}
         <div 
@@ -219,7 +219,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
             style={{ background: "linear-gradient(180deg, #4a030b, #2a0106)" }}
           >
             <div 
-              className="relative rounded-lg px-2.5 pt-2.5 pb-3 overflow-hidden"
+              className="relative rounded-lg px-2.5 pt-1.5 pb-2 overflow-hidden"
               style={{ background: "linear-gradient(180deg, #54040c 0%, #3d0208 40%, #2a0106 100%)" }}
             >
               {/* Decorative SVG Corner Ornaments */}
@@ -334,30 +334,30 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
 
                   {/* Text content overlaid on the badge */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <p className="text-[9px] font-bold text-amber-300/90 uppercase leading-none mb-1">
+                    <p className="text-[9px] font-bold text-amber-300/90 uppercase leading-none mb-0.5">
                       {branch.since}
                     </p>
                     
                     {/* Aaasvaad Logo Text with Shahi Biryani at Bottom Right */}
                     <div className="relative flex flex-col items-center justify-center">
                       <h1 
-                        className="text-[3.25rem] font-bold leading-none tracking-widest pr-2.2"
+                        className="text-[3rem] font-bold leading-none tracking-widest pr-2.2"
                         style={{
                           color: "#ffd93d",
                           fontFamily: "var(--font-ams-manthan)",
                           textShadow: "2px 2px 0px #500008, -1px -1px 0px #500008, 0 0 6px rgba(255, 217, 61, 0.6), 0 0 12px rgba(255, 217, 61, 0.3)"
                         }}
                       >
-                        Aaasvaad
+                        {branch.brandLogoText || "Aaasvaad"}
                       </h1>
                       
                       <span 
-                        className="absolute bottom-[-6px] font-semibold right-[12px] text-[0.82rem] text-white/95 leading-none whitespace-nowrap"
+                        className="absolute bottom-[-4px] font-semibold right-[12px] text-[0.8rem] text-white/95 leading-none whitespace-nowrap"
                         style={{
                           textShadow: "1px 1px 2.5px rgba(0,0,0,0.9)"
                         }}
                       >
-                        शाही बिर्याणी
+                        {branch.tagline || "शाही बिर्याणी"}
                       </span>
                     </div>
                     
@@ -366,7 +366,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
               </div>
 
               {/* 3. VEG / NON-VEG Category Switcher */}
-              <div className="mt-5 flex items-center justify-center gap-2.5">
+              <div className="mt-4 flex items-center justify-center gap-2.5">
                 <button
                   onClick={() => selectCategory("veg")}
                   className="flex items-center gap-2 px-4 py-1.5 text-[12px] whitespace-nowrap transition-all duration-300"
@@ -421,7 +421,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                 key={activeCategory}
                 ref={scrollRef}
                 onScroll={handleScroll}
-                className="mt-4 flex overflow-x-auto snap-x snap-mandatory scroll-smooth"
+                className="mt-3 flex overflow-x-auto snap-x snap-mandatory scroll-smooth"
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               >
                 {filteredPages.map((page, idx) => (
@@ -433,7 +433,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
 
               {/* 6. Page Dots */}
               {totalPages > 1 && (
-                <div className="mt-3 flex justify-center items-center gap-2">
+                <div className="mt-2.5 flex justify-center items-center gap-2">
                   {filteredPages.map((_, idx) => (
                     <button
                       key={idx}
@@ -462,14 +462,27 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
 
       {/* ── Fixed Sticky Order Footer ──────────────────────────────────── */}
       <div 
-        className="fixed inset-x-0 bottom-0 z-40 px-4 py-3"
+        className="fixed inset-x-0 bottom-0 z-40 px-4 py-2"
         style={{
           background: "linear-gradient(180deg, rgba(26, 0, 3, 0.95), rgba(26, 0, 3, 1))",
           borderTop: "1px solid rgba(255, 217, 61, 0.1)",
           boxShadow: "0 -4px 20px rgba(0,0,0,0.5)",
         }}
       >
-        <div className="mx-auto flex max-w-[400px] gap-3">
+        <div className="mx-auto flex max-w-[400px] gap-2.5">
+          {branch.instagramLink && (
+            <a
+              href={branch.instagramLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-1 items-center justify-center rounded-xl overflow-hidden shadow-md transition-all duration-300 active:scale-95 h-11 border border-pink-500/30"
+              style={{ background: "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)" }}
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.822a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+              </svg>
+            </a>
+          )}
           <a
             href={branch.zomatoLink}
             target="_blank"

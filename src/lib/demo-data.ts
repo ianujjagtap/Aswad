@@ -31,6 +31,8 @@ export interface BranchDetails {
   address: string;
   zomatoLink: string;
   swiggyLink: string;
+  instagramLink?: string;
+  brandLogoText?: string;
   pages: MenuPageData[];
 }
 
@@ -43,12 +45,14 @@ export const aaswadMenuData: BranchDetails = {
   address: "विठ्ठल नगर, चिंचवड",
   zomatoLink: "https://www.zomato.com",
   swiggyLink: "https://www.swiggy.com",
+  instagramLink: "https://www.instagram.com",
+  brandLogoText: "Aaasvaad",
   pages: [
     // ── VEG PAGE ──
     {
       title: "शाकाहारी मेनू",
       category: "veg",
-      images: ["/biryani2.jpeg"],
+      images: ["/premium_veg_starters.png"],
       leftColumn: [
         {
           nameMr: "मुख्य पदार्थ",
@@ -90,7 +94,7 @@ export const aaswadMenuData: BranchDetails = {
     {
       title: "स्टार्टर्स व बिर्याणी",
       category: "non-veg",
-      images: ["/biryani1.jpeg"],
+      images: ["/premium_nonveg_biryani.png"],
       bottomText: "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
       leftColumn: [
         {
@@ -133,7 +137,7 @@ export const aaswadMenuData: BranchDetails = {
     {
       title: "मेन कोर्स व थाळी",
       category: "non-veg",
-      images: ["/biryani1.jpeg"],
+      images: ["/premium_nonveg_biryani.png"],
       bottomText: "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
       leftColumn: [
         {
