@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { aaswadMenuData } from "@/lib/demo-data";
+import { getBranchBySlug } from "@/lib/db/queries";
 
 import { MenuCard } from "./menu-card";
 
@@ -12,19 +12,18 @@ export async function generateMetadata({
   params,
 }: MenuPageProps): Promise<Metadata> {
   const { branchSlug } = await params;
-  // TODO: Fetch from DB
-  const branch = branchSlug === "aaswad-main" ? aaswadMenuData : null;
+  const branch = await getBranchBySlug(branchSlug);
 
   if (!branch) {
     return { title: "Menu Not Found" };
   }
 
   return {
-    title: `${branch.name} | Menu`,
-    description: `${branch.name} - डिजिटल मेनू कार्ड. ${branch.address}. मो. ${branch.phone}`,
+    title: `${branch.nameEn} | ${branch.nameMr} Menu`,
+    description: `${branch.nameEn} - Digital menu. ${branch.addressEn}. Ph. ${branch.phone}`,
     openGraph: {
-      title: `${branch.name} | Menu`,
-      description: `${branch.name} - डिजिटल मेनू कार्ड. ${branch.address}`,
+      title: `${branch.nameEn} | Menu`,
+      description: `${branch.nameMr} - Digital menu card`,
       type: "website",
     },
   };
@@ -32,8 +31,7 @@ export async function generateMetadata({
 
 export default async function MenuPage({ params }: MenuPageProps) {
   const { branchSlug } = await params;
-  // TODO: Fetch from DB using branchSlug
-  const branch = branchSlug === "aaswad-main" ? aaswadMenuData : null;
+  const branch = await getBranchBySlug(branchSlug);
 
   if (!branch) {
     return (

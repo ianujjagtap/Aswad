@@ -34,37 +34,34 @@ export default function LoginPage() {
       toast.error(result.error);
       setIsLoading(false);
     } else {
-      toast.success("लॉगिन यशस्वी!");
+      toast.success("Login successful");
       router.push("/admin/dashboard");
       router.refresh();
     }
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#FFF8E7] via-[#F5E6C8] to-[#FFF8E7] px-4">
-      {/* Decorative background */}
+    <div className="dark flex min-h-screen items-center justify-center bg-background px-4">
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -left-20 -top-20 size-60 rounded-full bg-[#8B1A1A]/5 blur-3xl" />
-        <div className="absolute -bottom-20 -right-20 size-60 rounded-full bg-[#D4A517]/5 blur-3xl" />
+        <div className="absolute -left-20 -top-20 size-60 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute -bottom-20 -right-20 size-60 rounded-full bg-accent/10 blur-3xl" />
       </div>
 
-      <Card className="relative w-full max-w-md border-[#D4A517]/20 bg-white/80 shadow-xl backdrop-blur-sm">
+      <Card className="relative w-full max-w-md border-border/50 bg-card/80 backdrop-blur-sm">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-full bg-[#8B1A1A]">
-            <UtensilsCrossed className="size-7 text-white" />
+          <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-2xl bg-primary/20 ring-1 ring-primary/30">
+            <UtensilsCrossed className="size-7 text-primary" />
           </div>
-          <CardTitle className="font-[var(--font-devanagari)] text-2xl text-[#8B1A1A]">
-            आस्वाद
+          <CardTitle className="font-[var(--font-devanagari)] text-2xl">
+            आस्वाद Admin
           </CardTitle>
-          <CardDescription className="text-[#2D1810]/60">
-            Admin Panel • व्यवस्थापक लॉगिन
-          </CardDescription>
+          <CardDescription>Sign in to manage your menu card</CardDescription>
         </CardHeader>
 
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">ईमेल / Email</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 name="email"
@@ -72,12 +69,12 @@ export default function LoginPage() {
                 placeholder="admin@aaswad.com"
                 required
                 autoComplete="email"
-                disabled={isLoading}
+                className="bg-background/50"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">पासवर्ड / Password</Label>
+              <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -86,13 +83,12 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   required
                   autoComplete="current-password"
-                  disabled={isLoading}
+                  className="bg-background/50 pr-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  tabIndex={-1}
                 >
                   {showPassword ? (
                     <EyeOff className="size-4" />
@@ -103,18 +99,14 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <Button
-              type="submit"
-              className="w-full bg-[#8B1A1A] hover:bg-[#6B1414]"
-              disabled={isLoading}
-            >
+            <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-2 size-4 animate-spin" />
-                  लॉगिन होत आहे...
+                  <Loader2 className="size-4 animate-spin" />
+                  Signing in...
                 </>
               ) : (
-                "लॉगिन करा"
+                "Sign in"
               )}
             </Button>
           </form>

@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 
-import { QRCodeClient } from "@/components/admin/qr-code-client";
+import { BranchInfoForm } from "@/components/admin/branch-info-form";
 import { getAdminBranchId, requireAuth } from "@/lib/auth-helpers";
 import { getBranchMenuData } from "@/lib/db/queries";
 
-export default async function QRPage() {
+export default async function BranchPage() {
   await requireAuth();
   const branchId = await getAdminBranchId();
   if (!branchId) redirect("/admin/branches?pick=1");
@@ -12,5 +12,5 @@ export default async function QRPage() {
   const data = await getBranchMenuData(branchId);
   if (!data) redirect("/admin/dashboard");
 
-  return <QRCodeClient slug={data.slug} branchName={data.nameMr} />;
+  return <BranchInfoForm data={data} />;
 }
