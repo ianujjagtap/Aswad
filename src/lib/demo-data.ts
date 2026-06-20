@@ -52,7 +52,7 @@ export const aaswadMenuData: BranchDetails = {
     {
       title: "शाकाहारी मेनू",
       category: "veg",
-      images: ["/premium_veg_starters.png"],
+      images: ["/premium_veg_starters.png", "/premium_veg_thali.png"],
       leftColumn: [
         {
           nameMr: "मुख्य पदार्थ",
@@ -94,7 +94,7 @@ export const aaswadMenuData: BranchDetails = {
     {
       title: "स्टार्टर्स व बिर्याणी",
       category: "non-veg",
-      images: ["/premium_nonveg_biryani.png"],
+      images: ["/premium_nonveg_biryani.png", "/premium_chicken_lollipop.png"],
       bottomText: "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
       leftColumn: [
         {
@@ -137,7 +137,7 @@ export const aaswadMenuData: BranchDetails = {
     {
       title: "मेन कोर्स व थाळी",
       category: "non-veg",
-      images: ["/premium_nonveg_biryani.png"],
+      images: ["/premium_chicken_thali.png", "/premium_mutton_handi.png"],
       bottomText: "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
       leftColumn: [
         {
