@@ -143,12 +143,21 @@ function MenuPageView({ page }: { page: MenuPageData }) {
 /* ── Main MenuCard Component ────────────────────────────────────────── */
 export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }) {
   const pages = branch.pages;
-  const totalPages = pages.length;
+  const [activeCategory, setActiveCategory] = useState<"veg" | "non-veg">("non-veg");
+
+  const filteredPages = pages.filter(p => p.category === activeCategory);
+  const totalPages = filteredPages.length;
 
   const [currentPage, setCurrentPage] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const isProgrammaticScrollRef = useRef(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const selectCategory = (cat: "veg" | "non-veg") => {
+    if (cat === activeCategory) return;
+    setActiveCategory(cat);
+    setCurrentPage(0);
+  };
 
   const handleScroll = useCallback(() => {
     if (isProgrammaticScrollRef.current) return;
@@ -352,39 +361,80 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                       </span>
                     </div>
                     
-                    {/* Centered Veg / Non-veg Indicator Pair */}
-                    {/* <div className="flex items-center justify-center gap-2 mt-2 opacity-95">
-                      <span className="inline-flex items-center justify-center border border-emerald-500 p-[1.5px] rounded-[2px] bg-[#1a0003]/60 w-3 h-3">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      </span>
-                      <span className="inline-flex items-center justify-center border border-rose-600 p-[1.5px] rounded-[2px] bg-[#1a0003]/60 w-3 h-3">
-                        <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
-                      </span>
-                    </div> */}
                   </div>
                 </div>
               </div>
 
-              {/* 3. Royal Page Tabs */}
+              {/* 3. VEG / NON-VEG Category Switcher */}
+              <div className="mt-5 flex items-center justify-center gap-2.5">
+                <button
+                  onClick={() => selectCategory("veg")}
+                  className="flex items-center gap-2 px-4 py-1.5 text-[12px] whitespace-nowrap transition-all duration-300"
+                  style={{
+                    fontFamily: "var(--font-yatra)",
+                    color: activeCategory === "veg" ? "#1a0003" : "rgba(255, 217, 61, 0.7)",
+                    background: activeCategory === "veg"
+                      ? "linear-gradient(135deg, #ffd93d, #daa520)"
+                      : "rgba(80, 0, 8, 0.35)",
+                    border: activeCategory === "veg"
+                      ? "1.5px solid #ffd93d"
+                      : "1px solid rgba(255, 217, 61, 0.18)",
+                    borderRadius: "8px",
+                    boxShadow: activeCategory === "veg"
+                      ? "0 3px 12px rgba(255, 217, 61, 0.3)"
+                      : "none",
+                  }}
+                >
+                  <span className={`inline-flex items-center justify-center border-[1.5px] ${activeCategory === "veg" ? "border-[#064e3b]" : "border-emerald-500"} rounded-[3px] w-3.5 h-3.5 shrink-0`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${activeCategory === "veg" ? "bg-[#064e3b]" : "bg-emerald-500"}`} />
+                  </span>
+                  VEG
+                </button>
+                <button
+                  onClick={() => selectCategory("non-veg")}
+                  className="flex items-center gap-2 px-4 py-1.5 text-[12px] whitespace-nowrap transition-all duration-300"
+                  style={{
+                    fontFamily: "var(--font-yatra)",
+                    color: activeCategory === "non-veg" ? "#1a0003" : "rgba(255, 217, 61, 0.7)",
+                    background: activeCategory === "non-veg"
+                      ? "linear-gradient(135deg, #ffd93d, #daa520)"
+                      : "rgba(80, 0, 8, 0.35)",
+                    border: activeCategory === "non-veg"
+                      ? "1.5px solid #ffd93d"
+                      : "1px solid rgba(255, 217, 61, 0.18)",
+                    borderRadius: "8px",
+                    boxShadow: activeCategory === "non-veg"
+                      ? "0 3px 12px rgba(255, 217, 61, 0.3)"
+                      : "none",
+                  }}
+                >
+                  <span className={`inline-flex items-center justify-center border-[1.5px] ${activeCategory === "non-veg" ? "border-[#7f1d1d]" : "border-rose-600"} rounded-[3px] w-3.5 h-3.5 shrink-0`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${activeCategory === "non-veg" ? "bg-[#7f1d1d]" : "bg-rose-600"}`} />
+                  </span>
+                  NON-VEG
+                </button>
+              </div>
+
+              {/* 4. Sub-page Tabs (only when category has multiple pages) */}
               {totalPages > 1 && (
-                <div className="mt-4 flex items-center justify-center gap-1.5">
-                  {pages.map((page, idx) => (
+                <div className="mt-3 flex items-center justify-center gap-1.5">
+                  {filteredPages.map((page, idx) => (
                     <button
                       key={idx}
                       onClick={() => goToPage(idx)}
-                      className="relative px-4 py-1.5 text-[11.5px] font-normal whitespace-nowrap transition-all duration-300"
+                      className="relative px-3.5 py-1 text-[10.5px] font-normal whitespace-nowrap transition-all duration-300"
                       style={{
                         fontFamily: "var(--font-yatra)",
                         color: currentPage === idx ? "#1a0003" : "rgba(255, 217, 61, 0.85)",
-                        background: currentPage === idx 
-                          ? "linear-gradient(135deg, #ffd93d, #daa520)" 
+                        background: currentPage === idx
+                          ? "linear-gradient(135deg, #ffd93d, #daa520)"
                           : "rgba(80, 0, 8, 0.45)",
-                        border: currentPage === idx 
+                        border: currentPage === idx
                           ? "1px solid #ffd93d"
                           : "1px solid rgba(255, 217, 61, 0.22)",
-                        borderRadius: "7px",
-                        boxShadow: currentPage === idx 
-                          ? "0 2.5px 10px rgba(255, 217, 61, 0.35)"
+                        borderRadius: "6px",
+                        boxShadow: currentPage === idx
+                          ? "0 2px 8px rgba(255, 217, 61, 0.3)"
                           : "none",
                       }}
                     >
@@ -394,24 +444,25 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                 </div>
               )}
 
-              {/* 4. Swipable Pages */}
-              <div 
+              {/* 5. Swipable Pages — key forces full DOM reset on category change */}
+              <div
+                key={activeCategory}
                 ref={scrollRef}
                 onScroll={handleScroll}
-                className="mt-5 flex overflow-x-auto snap-x snap-mandatory scroll-smooth"
+                className="mt-4 flex overflow-x-auto snap-x snap-mandatory scroll-smooth"
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               >
-                {pages.map((page, idx) => (
+                {filteredPages.map((page, idx) => (
                   <div key={idx} className="w-full shrink-0 snap-start snap-always">
                     <MenuPageView page={page} />
                   </div>
                 ))}
               </div>
 
-              {/* 5. Page Dots */}
+              {/* 6. Page Dots */}
               {totalPages > 1 && (
                 <div className="mt-3 flex justify-center items-center gap-2">
-                  {pages.map((_, idx) => (
+                  {filteredPages.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => goToPage(idx)}
