@@ -120,6 +120,22 @@ function MenuPageView({ page }: { page: MenuPageData }) {
           </div>
         </div>
       </div>
+
+      {/* Bottom Ribbon */}
+      {page.bottomText && (
+        <div 
+          className="mt-3.5 rounded-lg py-2 px-3 text-center"
+          style={{
+            background: "linear-gradient(135deg, rgba(168, 10, 24, 0.75), rgba(100, 5, 12, 0.75))",
+            border: "1px solid rgba(255, 217, 61, 0.2)",
+            boxShadow: "inset 0 1px 6px rgba(255,255,255,0.06)",
+          }}
+        >
+          <p className="text-[9.5px] font-bold text-amber-200/90 tracking-wide font-[var(--font-mukta)]">
+            {page.bottomText}
+          </p>
+        </div>
+      )}
     </>
   );
 }
@@ -127,11 +143,7 @@ function MenuPageView({ page }: { page: MenuPageData }) {
 /* ── Main MenuCard Component ────────────────────────────────────────── */
 export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }) {
   const pages = branch.pages;
-  const [activeCategory, setActiveCategory] = useState<"veg" | "non-veg">("non-veg");
-
-  // Filter pages for active category
-  const filteredPages = pages.filter(p => p.category === activeCategory);
-  const totalPages = filteredPages.length;
+  const totalPages = pages.length;
 
   const [currentPage, setCurrentPage] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -165,14 +177,6 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
     scrollTimeoutRef.current = setTimeout(() => {
       isProgrammaticScrollRef.current = false;
     }, 500);
-  };
-
-  const selectCategory = (cat: "veg" | "non-veg") => {
-    setActiveCategory(cat);
-    setCurrentPage(0);
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft = 0;
-    }
   };
 
   return (
@@ -348,58 +352,15 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                       </span>
                     </div>
                     
-                    {/* Centered Veg / Non-veg Indicator Switcher */}
-                    <div className="mt-4 flex items-center justify-center gap-3">
-                      {/* Veg Button */}
-                      <button
-                        onClick={() => selectCategory("veg")}
-                        className="flex items-center justify-center px-4 py-2 text-[12.5px] font-normal whitespace-nowrap transition-all duration-300 shadow-md"
-                        style={{
-                          fontFamily: "var(--font-yatra)",
-                          color: activeCategory === "veg" ? "#1a0003" : "rgba(255, 217, 61, 0.75)",
-                          background: activeCategory === "veg" 
-                            ? "linear-gradient(135deg, #ffd93d, #daa520)" 
-                            : "rgba(80, 0, 8, 0.35)",
-                          border: activeCategory === "veg" 
-                            ? "1.5px solid #ffd93d"
-                            : "1px solid rgba(255, 217, 61, 0.18)",
-                          borderRadius: "8px",
-                          boxShadow: activeCategory === "veg" 
-                            ? "0 3px 12px rgba(255, 217, 61, 0.35)"
-                            : "none",
-                        }}
-                      >
-                        <span className={`inline-flex items-center justify-center border-[1.5px] ${activeCategory === 'veg' ? 'border-[#1a0003]' : 'border-emerald-500'} p-[1.5px] rounded-[3px] bg-transparent w-3.5 h-3.5 shrink-0 mr-2`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${activeCategory === 'veg' ? 'bg-[#1a0003]' : 'bg-emerald-500'}`} />
-                        </span>
-                        <span>शाकाहारी (VEG)</span>
-                      </button>
-
-                      {/* Non-Veg Button */}
-                      <button
-                        onClick={() => selectCategory("non-veg")}
-                        className="flex items-center justify-center px-4 py-2 text-[12.5px] font-normal whitespace-nowrap transition-all duration-300 shadow-md"
-                        style={{
-                          fontFamily: "var(--font-yatra)",
-                          color: activeCategory === "non-veg" ? "#1a0003" : "rgba(255, 217, 61, 0.75)",
-                          background: activeCategory === "non-veg" 
-                            ? "linear-gradient(135deg, #ffd93d, #daa520)" 
-                            : "rgba(80, 0, 8, 0.35)",
-                          border: activeCategory === "non-veg" 
-                            ? "1.5px solid #ffd93d"
-                            : "1px solid rgba(255, 217, 61, 0.18)",
-                          borderRadius: "8px",
-                          boxShadow: activeCategory === "non-veg" 
-                            ? "0 3px 12px rgba(255, 217, 61, 0.35)"
-                            : "none",
-                        }}
-                      >
-                        <span className={`inline-flex items-center justify-center border-[1.5px] ${activeCategory === 'non-veg' ? 'border-[#1a0003]' : 'border-rose-600'} p-[1.5px] rounded-[3px] bg-transparent w-3.5 h-3.5 shrink-0 mr-2`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${activeCategory === 'non-veg' ? 'bg-[#1a0003]' : 'bg-rose-600'}`} />
-                        </span>
-                        <span>मांसाहारी (NON-VEG)</span>
-                      </button>
-                    </div>
+                    {/* Centered Veg / Non-veg Indicator Pair */}
+                    {/* <div className="flex items-center justify-center gap-2 mt-2 opacity-95">
+                      <span className="inline-flex items-center justify-center border border-emerald-500 p-[1.5px] rounded-[2px] bg-[#1a0003]/60 w-3 h-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      </span>
+                      <span className="inline-flex items-center justify-center border border-rose-600 p-[1.5px] rounded-[2px] bg-[#1a0003]/60 w-3 h-3">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
+                      </span>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -407,7 +368,7 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
               {/* 3. Royal Page Tabs */}
               {totalPages > 1 && (
                 <div className="mt-4 flex items-center justify-center gap-1.5">
-                  {filteredPages.map((page, idx) => (
+                  {pages.map((page, idx) => (
                     <button
                       key={idx}
                       onClick={() => goToPage(idx)}
@@ -440,32 +401,17 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                 className="mt-5 flex overflow-x-auto snap-x snap-mandatory scroll-smooth"
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               >
-                {filteredPages.map((page, idx) => (
+                {pages.map((page, idx) => (
                   <div key={idx} className="w-full shrink-0 snap-start snap-always">
                     <MenuPageView page={page} />
                   </div>
                 ))}
               </div>
 
-      {/* Bottom Ribbon */}
-      {filteredPages[currentPage]?.bottomText && (
-        <div 
-          className="mt-3.5 rounded-lg py-2 px-3 text-center"
-          style={{
-            background: "linear-gradient(135deg, rgba(168, 10, 24, 0.75), rgba(100, 5, 12, 0.75))",
-            border: "1px solid rgba(255, 217, 61, 0.2)",
-            boxShadow: "inset 0 1px 6px rgba(255,255,255,0.06)",
-          }}
-        >
-          <p className="text-[9.5px] font-bold text-amber-200/90 tracking-wide font-[var(--font-mukta)]">
-            {filteredPages[currentPage].bottomText}
-          </p>
-        </div>
-      )}
               {/* 5. Page Dots */}
               {totalPages > 1 && (
                 <div className="mt-3 flex justify-center items-center gap-2">
-                  {filteredPages.map((_, idx) => (
+                  {pages.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => goToPage(idx)}
