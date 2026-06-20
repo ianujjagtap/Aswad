@@ -415,34 +415,6 @@ export function MenuCard({ branch = aaswadMenuData }: { branch?: BranchDetails }
                 </button>
               </div>
 
-              {/* 4. Sub-page Tabs (only when category has multiple pages) */}
-              {totalPages > 1 && (
-                <div className="mt-3 flex items-center justify-center gap-1.5">
-                  {filteredPages.map((page, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => goToPage(idx)}
-                      className="relative px-3.5 py-1 text-[10.5px] font-normal whitespace-nowrap transition-all duration-300"
-                      style={{
-                        fontFamily: "var(--font-yatra)",
-                        color: currentPage === idx ? "#1a0003" : "rgba(255, 217, 61, 0.85)",
-                        background: currentPage === idx
-                          ? "linear-gradient(135deg, #ffd93d, #daa520)"
-                          : "rgba(80, 0, 8, 0.45)",
-                        border: currentPage === idx
-                          ? "1px solid #ffd93d"
-                          : "1px solid rgba(255, 217, 61, 0.22)",
-                        borderRadius: "6px",
-                        boxShadow: currentPage === idx
-                          ? "0 2px 8px rgba(255, 217, 61, 0.3)"
-                          : "none",
-                      }}
-                    >
-                      {page.title}
-                    </button>
-                  ))}
-                </div>
-              )}
 
               {/* 5. Swipable Pages — key forces full DOM reset on category change */}
               <div
