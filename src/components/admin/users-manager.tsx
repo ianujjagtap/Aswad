@@ -31,6 +31,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { createUser, deleteUser } from "@/lib/actions/admin";
+import { useAdminLanguage } from "@/components/admin/admin-language-provider";
 import type { User } from "@/lib/db/schema";
 
 export function UsersManager({ users }: { users: User[] }) {
@@ -43,6 +44,7 @@ export function UsersManager({ users }: { users: User[] }) {
     password: "",
     role: "admin" as "admin" | "superadmin",
   });
+  const { t } = useAdminLanguage();
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -72,21 +74,21 @@ export function UsersManager({ users }: { users: User[] }) {
     <div className="px-4 py-8 lg:px-8">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Users</h1>
+          <h1 className="text-2xl font-bold">{t("Users", "युजर्स")}</h1>
           <p className="text-sm text-muted-foreground">
-            Superadmin & branch admin accounts
+            {t("Superadmin & branch admin accounts", "सुपरअॅडमिन आणि ब्रांच अॅडमिन खाती")}
           </p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button>
               <UserPlus className="size-4" />
-              Add user
+              {t("Add user", "नवीन युजर जोडा")}
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Create admin account</DialogTitle>
+              <DialogTitle>{t("Create admin account", "अॅडमिन खाते तयार करा")}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleCreate} className="space-y-4">
               <div className="space-y-1.5">

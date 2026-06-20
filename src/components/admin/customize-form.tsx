@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { updateMenuConfig } from "@/lib/actions/admin";
+import { useAdminLanguage } from "@/components/admin/admin-language-provider";
 import type { BranchMenuData } from "@/lib/types/menu";
 
 const FONT_OPTIONS = [
@@ -30,6 +31,7 @@ export function CustomizeForm({ data }: { data: BranchMenuData }) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [config, setConfig] = useState(data.config);
+  const { t } = useAdminLanguage();
 
   async function handleSave() {
     setSaving(true);
@@ -43,20 +45,20 @@ export function CustomizeForm({ data }: { data: BranchMenuData }) {
     <div className="px-4 py-8 lg:px-8">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Style & Theme</h1>
-          <p className="text-sm text-muted-foreground">Colors and background</p>
+          <h1 className="text-2xl font-bold">{t("Style & Theme", "स्टाईल आणि थीम")}</h1>
+          <p className="text-sm text-muted-foreground">{t("Colors and background", "रंग आणि पार्श्वभूमी")}</p>
         </div>
         <Button onClick={handleSave} disabled={saving}>
           {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
-          Save
+          {t("Save", "सेव्ह करा")}
         </Button>
       </div>
 
       <div className="mx-auto max-w-2xl space-y-6">
         <Card className="border-border/50 bg-card/50">
           <CardHeader>
-            <CardTitle>Background</CardTitle>
-            <CardDescription>Optional background image for menu card</CardDescription>
+            <CardTitle>{t("Background", "पार्श्वभूमी")}</CardTitle>
+            <CardDescription>{t("Optional background image for menu card", "मेनू कार्डसाठी पार्श्वभूमी फोटो (ऐच्छिक)")}</CardDescription>
           </CardHeader>
           <CardContent>
             <ImageUpload

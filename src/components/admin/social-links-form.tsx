@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import { saveSocialLinks } from "@/lib/actions/admin";
 import { MAX_SOCIAL_LINKS } from "@/lib/constants";
+import { useAdminLanguage } from "@/components/admin/admin-language-provider";
 import type { BranchMenuData, SocialLinkData, SocialPlatform } from "@/lib/types/menu";
 
 const PLATFORMS: { value: SocialPlatform; label: string }[] = [
@@ -46,6 +47,7 @@ export function SocialLinksForm({
   const router = useRouter();
   const [links, setLinks] = useState(initialLinks);
   const [saving, setSaving] = useState(false);
+  const { t } = useAdminLanguage();
 
   function addLink() {
     if (links.length >= MAX_SOCIAL_LINKS) {
@@ -102,19 +104,19 @@ export function SocialLinksForm({
     <div className="px-4 py-8 lg:px-8">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Social & Order Links</h1>
+          <h1 className="text-2xl font-bold">{t("Social & Order Links", "सोशल आणि ऑर्डर लिंक्स")}</h1>
           <p className="text-sm text-muted-foreground">
-            Up to {MAX_SOCIAL_LINKS} links shown in menu footer
+            {t(`Up to ${MAX_SOCIAL_LINKS} links shown in menu footer`, `मेनूच्या तळाशी जास्तीत जास्त ${MAX_SOCIAL_LINKS} लिंक्स दाखवल्या जातील`)}
           </p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={addLink} disabled={links.length >= MAX_SOCIAL_LINKS}>
             <Plus className="size-4" />
-            Add link
+            {t("Add link", "नवीन लिंक जोडा")}
           </Button>
           <Button onClick={handleSave} disabled={saving}>
             {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
-            Save
+            {t("Save", "सेव्ह करा")}
           </Button>
         </div>
       </div>

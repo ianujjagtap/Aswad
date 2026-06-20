@@ -7,6 +7,7 @@ import { toast } from "sonner";
 
 import { BilingualField } from "@/components/admin/bilingual-field";
 import { ImageUpload } from "@/components/admin/image-upload";
+import { useAdminLanguage } from "@/components/admin/admin-language-provider";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -49,6 +50,7 @@ export function MenuEditor({ branchId, initialData }: MenuEditorProps) {
   const [data, setData] = useState(initialData);
   const [saving, setSaving] = useState(false);
   const [activePageId, setActivePageId] = useState(data.pages[0]?.id ?? "");
+  const { t } = useAdminLanguage();
 
   const activePage = data.pages.find((p) => p.id === activePageId);
 
@@ -189,9 +191,9 @@ export function MenuEditor({ branchId, initialData }: MenuEditorProps) {
     <div className="px-4 py-8 lg:px-8">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Menu Editor</h1>
+          <h1 className="text-2xl font-bold">{t("Menu Editor", "मेनू एडिटर")}</h1>
           <p className="text-sm text-muted-foreground">
-            Edit pages, categories & bilingual dish names
+            {t("Edit pages, categories & bilingual dish names", "मेनू पेजेस, कॅटेगरीज आणि पदार्थांची नावे बदला")}
           </p>
         </div>
         <Button onClick={handleSaveAll} disabled={saving}>
@@ -200,7 +202,7 @@ export function MenuEditor({ branchId, initialData }: MenuEditorProps) {
           ) : (
             <Save className="size-4" />
           )}
-          Save all changes
+          {t("Save all changes", "सर्व बदल सेव्ह करा")}
         </Button>
       </div>
 
@@ -218,7 +220,7 @@ export function MenuEditor({ branchId, initialData }: MenuEditorProps) {
           </TabsList>
           <Button variant="outline" size="sm" onClick={handleAddPage}>
             <Plus className="size-4" />
-            Add page
+            {t("Add page", "नवीन पान जोडा")}
           </Button>
         </div>
 
@@ -228,8 +230,8 @@ export function MenuEditor({ branchId, initialData }: MenuEditorProps) {
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
-                    <CardTitle>Page settings</CardTitle>
-                    <CardDescription>Title, images & footer text</CardDescription>
+                    <CardTitle>{t("Page settings", "पानाची सेटिंग्ज")}</CardTitle>
+                    <CardDescription>{t("Title, images & footer text", "शीर्षक, फोटो आणि तळाचा मजकूर")}</CardDescription>
                   </div>
                   <Button
                     variant="destructive"

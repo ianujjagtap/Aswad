@@ -3,6 +3,7 @@ import { Inter, Noto_Sans_Devanagari, Yatra_One, Rozha_One, Mukta, Amita, Cinzel
 import localFont from "next/font/local";
 
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
 
@@ -90,8 +91,15 @@ export default function RootLayout({
       className={`${inter.variable} ${notoDevanagari.variable} ${yatraOne.variable} ${rozhaOne.variable} ${mukta.variable} ${amsManthan.variable} ${amita.variable} ${cinzel.variable} ${cinzelDec.variable}`}
     >
       <body className="antialiased">
-        {children}
-        <Toaster position="top-center" richColors />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster position="top-center" richColors />
+        </ThemeProvider>
       </body>
     </html>
   );
