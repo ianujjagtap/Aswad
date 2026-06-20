@@ -15,7 +15,7 @@ function MenuPageView({ page }: { page: MenuPageData }) {
           {page.leftColumn.map((category, catIdx) => (
             <div key={catIdx} className="flex flex-col">
               <div className="flex flex-col pb-0.5">
-                <h3 className="text-[13px] tracking-wide text-[#ffd93d] font-[var(--font-yatra)] font-normal">
+                <h3 className="text-[13.5px] tracking-wide text-[#ffd93d] font-[var(--font-yatra)] font-normal">
                   {category.nameMr}
                 </h3>
                 <div 
@@ -29,7 +29,7 @@ function MenuPageView({ page }: { page: MenuPageData }) {
               <div className="mt-2 flex flex-col gap-1.5">
                 {category.items.map((item, itemIdx) => (
                   <div key={itemIdx} className="flex flex-col">
-                    <div className="flex items-baseline justify-between text-[10px] leading-tight">
+                    <div className="flex items-baseline justify-between text-[10.5px] leading-tight">
                       <div className="flex items-start gap-1">
                         <span className="text-[#ffd93d] text-[7px] mt-[3px] select-none">♦</span>
                         <span className="text-[#FFF8E7] font-[var(--font-devanagari)] font-semibold tracking-wide">
@@ -66,7 +66,7 @@ function MenuPageView({ page }: { page: MenuPageData }) {
           {page.rightColumn.map((category, catIdx) => (
             <div key={catIdx} className="flex flex-col">
               <div className="flex flex-col pb-0.5">
-                <h3 className="text-[13px] tracking-wide text-[#ffd93d] font-[var(--font-yatra)] font-normal">
+                <h3 className="text-[13.5px] tracking-wide text-[#ffd93d] font-[var(--font-yatra)] font-normal">
                   {category.nameMr}
                 </h3>
                 <div 
@@ -80,7 +80,7 @@ function MenuPageView({ page }: { page: MenuPageData }) {
               <div className="mt-2 flex flex-col gap-1.5">
                 {category.items.map((item, itemIdx) => (
                   <div key={itemIdx} className="flex flex-col">
-                    <div className="flex items-baseline justify-between text-[10px] leading-tight">
+                    <div className="flex items-baseline justify-between text-[10.5px] leading-tight">
                       <div className="flex items-start gap-1">
                         <span className="text-[#ffd93d] text-[7px] mt-[3px] select-none">♦</span>
                         <span className="text-[#FFF8E7] font-[var(--font-devanagari)] font-semibold tracking-wide">
