@@ -14,6 +14,7 @@ import {
   UtensilsCrossed,
   X,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -100,8 +101,8 @@ export function AdminSidebar({
     <>
       <div className="border-b border-border/50 px-4 py-5">
         <div className="flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-xl bg-primary/20 ring-1 ring-primary/30">
-            <UtensilsCrossed className="size-5 text-primary" />
+          <div className="relative flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-primary/20 ring-1 ring-primary/30">
+            <Image src="/Aaswad-logo.jpeg" alt="Aaswad Logo" fill className="object-cover" />
           </div>
           <div>
             <p className="font-[var(--font-devanagari)] text-lg font-bold text-foreground">

@@ -220,29 +220,37 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
           "linear-gradient(175deg, #1a0003 0%, #3d0208 25%, #5a0a14 50%, #3d0208 75%, #1a0003 100%)",
       }}
     >
-      {/* Language toggle */}
-      <div className="fixed right-3 top-3 z-50 flex rounded-lg border border-[#ffd93d]/20 bg-[#1a0003]/90 p-0.5 backdrop-blur-sm">
+      {/* Minimalist Language Toggle */}
+      <div className="fixed right-3 top-3 z-50 flex items-center gap-2 rounded-full border border-[#ffd93d]/20 bg-[#1a0003]/60 px-3 py-1.5 backdrop-blur-md">
         <button
           type="button"
           onClick={() => setLocale("mr")}
-          className="rounded-md px-3 py-1 text-[11px] font-semibold transition-all"
-          style={{
-            background: locale === "mr" ? "linear-gradient(135deg, #ffd93d, #daa520)" : "transparent",
-            color: locale === "mr" ? "#1a0003" : "rgba(255,217,61,0.7)",
-          }}
+          className="text-[10px] font-medium transition-colors"
+          style={{ color: locale === "mr" ? "#ffd93d" : "rgba(255,217,61,0.5)" }}
         >
           मराठी
         </button>
         <button
           type="button"
-          onClick={() => setLocale("en")}
-          className="rounded-md px-3 py-1 text-[11px] font-semibold transition-all"
-          style={{
-            background: locale === "en" ? "linear-gradient(135deg, #ffd93d, #daa520)" : "transparent",
-            color: locale === "en" ? "#1a0003" : "rgba(255,217,61,0.7)",
-          }}
+          onClick={() => setLocale(locale === "mr" ? "en" : "mr")}
+          className="relative h-4 w-8 rounded-full transition-colors"
+          style={{ background: "rgba(255, 217, 61, 0.2)" }}
         >
-          English
+          <div
+            className="absolute top-0.5 h-3 w-3 rounded-full transition-all duration-300"
+            style={{
+              background: "linear-gradient(135deg, #ffd93d, #daa520)",
+              left: locale === "mr" ? "2px" : "18px",
+            }}
+          />
+        </button>
+        <button
+          type="button"
+          onClick={() => setLocale("en")}
+          className="text-[10px] font-medium transition-colors"
+          style={{ color: locale === "en" ? "#ffd93d" : "rgba(255,217,61,0.5)" }}
+        >
+          ENG
         </button>
       </div>
 
@@ -324,7 +332,7 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
                         {branch.brandLogoText || "Aaasvaad"}
                       </h1>
                       <span
-                        className={`absolute right-[12px] bottom-[-4px] text-[0.8rem] leading-none font-semibold whitespace-nowrap text-white/95 ${locale === "mr" ? "font-[var(--font-devanagari)]" : "font-sans"}`}
+                        className={`absolute right-[12px] bottom-[-8px] text-[0.8rem] leading-none font-semibold whitespace-nowrap text-white/95 ${locale === "mr" ? "font-[var(--font-amita)]" : "font-[var(--font-amita)]"}`}
                       >
                         {t(locale, branch.taglineMr, branch.taglineEn)}
                       </span>
@@ -332,8 +340,16 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
                   </div>
                 </div>
               </div>
+              <div className="mt-4 flex justify-center">
+                <div className="flex items-center gap-1.5 rounded-full border border-[#ffd93d]/30 bg-[#ffd93d]/10 px-3 py-1 shadow-[0_0_10px_rgba(255,217,61,0.1)] backdrop-blur-sm">
+                  <span className="text-[10px]">📍</span>
+                  <p className={`text-[11.5px] font-medium tracking-wide text-[#ffd93d] ${locale === "mr" ? "font-[var(--font-devanagari)]" : "font-sans"}`}>
+                    {t(locale, branch.nameMr, branch.nameEn)}
+                  </p>
+                </div>
+              </div>
 
-              <div className="mt-4 flex items-center justify-center gap-2.5">
+              <div className="mt-5 flex items-center justify-center gap-2.5">
                 {(["veg", "non-veg"] as const).map((cat) => (
                   <button
                     key={cat}
@@ -357,6 +373,15 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
                       borderRadius: "8px",
                     }}
                   >
+                    {cat === "veg" ? (
+                      <div className="flex h-3.5 w-3.5 items-center justify-center rounded-[2px] border-[1.5px] border-green-600 bg-white">
+                        <div className="h-1.5 w-1.5 rounded-full bg-green-600" />
+                      </div>
+                    ) : (
+                      <div className="flex h-3.5 w-3.5 items-center justify-center rounded-[2px] border-[1.5px] border-red-600 bg-white">
+                        <div className="h-0 w-0 border-x-[3.5px] border-x-transparent border-b-[6px] border-b-red-600" />
+                      </div>
+                    )}
                     {cat === "veg" ? (locale === "mr" ? "शाकाहारी" : "VEG") : locale === "mr" ? "मांसाहारी" : "NON-VEG"}
                   </button>
                 ))}
@@ -377,23 +402,28 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
               </div>
 
               {totalPages > 1 && (
-                <div className="mt-2.5 flex items-center justify-center gap-2">
-                  {filteredPages.map((page, idx) => (
-                    <button
-                      key={page.id}
-                      type="button"
-                      onClick={() => goToPage(idx)}
-                      className="rounded-full transition-all duration-300"
-                      style={{
-                        width: currentPage === idx ? "20px" : "6px",
-                        height: "6px",
-                        background:
-                          currentPage === idx
-                            ? "linear-gradient(90deg, #ffd93d, #f0c020)"
-                            : "rgba(255, 217, 61, 0.15)",
-                      }}
-                    />
-                  ))}
+                <div className="mt-3 flex flex-col items-center justify-center gap-2">
+                  <div className="flex gap-2">
+                    {filteredPages.map((page, idx) => (
+                      <button
+                        key={page.id}
+                        type="button"
+                        onClick={() => goToPage(idx)}
+                        className="rounded-full transition-all duration-300"
+                        style={{
+                          width: currentPage === idx ? "20px" : "6px",
+                          height: "6px",
+                          background:
+                            currentPage === idx
+                              ? "linear-gradient(90deg, #ffd93d, #f0c020)"
+                              : "rgba(255, 217, 61, 0.15)",
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-[10.5px] font-medium tracking-widest text-[#ffd93d]/70">
+                    {currentPage + 1} / {totalPages}
+                  </span>
                 </div>
               )}
             </div>

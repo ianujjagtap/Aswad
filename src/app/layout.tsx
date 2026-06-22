@@ -89,6 +89,7 @@ export default function RootLayout({
     <html
       lang="mr"
       className={`${inter.variable} ${notoDevanagari.variable} ${yatraOne.variable} ${rozhaOne.variable} ${mukta.variable} ${amsManthan.variable} ${amita.variable} ${cinzel.variable} ${cinzelDec.variable}`}
+      suppressHydrationWarning
     >
       <body className="antialiased">
         <ThemeProvider

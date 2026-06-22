@@ -1,6 +1,7 @@
 "use client";
 
-import { Eye, EyeOff, Loader2, UtensilsCrossed } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -49,8 +50,8 @@ export default function LoginPage() {
 
       <Card className="relative w-full max-w-md border-border/50 bg-card/80 backdrop-blur-sm">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-2xl bg-primary/20 ring-1 ring-primary/30">
-            <UtensilsCrossed className="size-7 text-primary" />
+          <div className="relative mx-auto mb-3 flex size-14 items-center justify-center overflow-hidden rounded-2xl bg-primary/20 ring-1 ring-primary/30">
+            <Image src="/Aaswad-logo.jpeg" alt="Aaswad Logo" fill className="object-cover" />
           </div>
           <CardTitle className="font-[var(--font-devanagari)] text-2xl">
             आस्वाद Admin
