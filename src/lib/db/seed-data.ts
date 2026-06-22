@@ -84,8 +84,8 @@ export const SEED_PAGES: SeedPage[] = [
     titleMr: "शाकाहारी मेनू",
     titleEn: "Vegetarian Menu",
     category: "veg",
-    image1Url: "/biryani1.jpeg",
-    image2Url: "/biryani2.jpeg",
+    image1Url: "/premium_veg_starters.png",
+    image2Url: "/premium_veg_thali.png",
     categories: [
       {
         nameMr: "मुख्य पदार्थ",
@@ -137,8 +137,8 @@ export const SEED_PAGES: SeedPage[] = [
       "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
     bottomTextEn:
       "Mutton, chicken, fish, country chicken & biryani available by the kilo.",
-    image1Url: "/biryani1.jpeg",
-    image2Url: "/biryani2.jpeg",
+    image1Url: "/premium_nonveg_biryani.png",
+    image2Url: "/premium_chicken_lollipop.png",
     categories: [
       {
         nameMr: "स्टार्टर",
@@ -188,8 +188,8 @@ export const SEED_PAGES: SeedPage[] = [
       "किलो प्रमाणे मटण, चिकन, मच्छी, गावरान चिकन, बिर्याणी बनवून मिळेल.",
     bottomTextEn:
       "Mutton, chicken, fish, country chicken & biryani available by the kilo.",
-    image1Url: "/biryani1.jpeg",
-    image2Url: "/biryani2.jpeg",
+    image1Url: "/premium_chicken_thali.png",
+    image2Url: "/premium_mutton_handi.png",
     categories: [
       {
         nameMr: "चिकन स्पेशल",

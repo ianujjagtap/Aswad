@@ -112,7 +112,7 @@ function MenuPageView({
 
   return (
     <>
-      <div className="grid grid-cols-[1.12fr_auto_0.88fr] gap-x-2 pb-1">
+      <div className="grid grid-cols-[1fr_auto_1fr] gap-x-2 pb-1">
         <div className="flex flex-col gap-2.5">{renderColumn(page.leftColumn)}</div>
 
         <div className="relative flex flex-col items-center justify-center py-1.5 select-none">
@@ -221,7 +221,7 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
       }}
     >
       {/* Minimalist Language Toggle */}
-      <div className="fixed right-3 top-3 z-50 flex items-center gap-2 rounded-full border border-[#ffd93d]/20 bg-[#1a0003]/60 px-3 py-1.5 backdrop-blur-md">
+      <div className="fixed left-1/2 top-3 z-50 flex -translate-x-1/2 items-center gap-2 rounded-full border border-[#ffd93d]/20 bg-[#1a0003]/80 px-3 py-1.5 backdrop-blur-md">
         <button
           type="button"
           onClick={() => setLocale("mr")}
@@ -275,7 +275,7 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
                   "linear-gradient(180deg, #54040c 0%, #3d0208 40%, #2a0106 100%)",
               }}
             >
-              <div className="flex justify-between px-2 text-[9px] font-bold tracking-wider text-amber-500/70">
+              <div className="mt-6 flex justify-between px-2 text-[9px] font-bold tracking-wider text-amber-500/70">
                 <span>
                   {locale === "mr" ? "प्रो." : "Prop."}{" "}
                   {t(locale, branch.proprietorMr, branch.proprietorEn)}
@@ -332,7 +332,7 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
                         {branch.brandLogoText || "Aaasvaad"}
                       </h1>
                       <span
-                        className={`absolute right-[12px] bottom-[-8px] text-[0.8rem] leading-none font-semibold whitespace-nowrap text-white/95 ${locale === "mr" ? "font-[var(--font-amita)]" : "font-[var(--font-amita)]"}`}
+                        className={`absolute right-[12px] bottom-[-8px] text-[0.8rem] leading-none font-semibold whitespace-nowrap text-white/95 font-[var(--font-amita)]`}
                       >
                         {t(locale, branch.taglineMr, branch.taglineEn)}
                       </span>

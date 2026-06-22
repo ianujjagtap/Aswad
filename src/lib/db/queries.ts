@@ -1,4 +1,5 @@
-import { asc, eq } from "drizzle-orm";
+import { asc, eq, inArray } from "drizzle-orm";
+import { cache } from "react";
 
 import { db } from "./index";
 import {
@@ -11,103 +12,137 @@ import {
 } from "./schema";
 import type { BranchMenuData } from "../types/menu";
 
-export async function getBranchBySlug(
-  slug: string
-): Promise<BranchMenuData | null> {
-  const [branch] = await db
-    .select()
-    .from(branches)
-    .where(eq(branches.slug, slug))
-    .limit(1);
+/**
+ * Cached version — React deduplicates calls with the same slug
+ * within a single request (generateMetadata + page render).
+ */
+export const getBranchBySlug = cache(
+  async (slug: string): Promise<BranchMenuData | null> => {
+    const [branch] = await db
+      .select()
+      .from(branches)
+      .where(eq(branches.slug, slug))
+      .limit(1);
 
-  if (!branch || !branch.isActive) return null;
+    if (!branch || !branch.isActive) return null;
 
-  return getBranchMenuData(branch.id);
-}
+    return getBranchMenuData(branch.id);
+  }
+);
 
 export async function getBranchMenuData(
   branchId: string
 ): Promise<BranchMenuData | null> {
-  const [branch] = await db
-    .select()
-    .from(branches)
-    .where(eq(branches.id, branchId))
-    .limit(1);
+  // 1. Fetch branch, config, social links, and pages IN PARALLEL
+  const [branchResult, configResult, links, pages] = await Promise.all([
+    db.select().from(branches).where(eq(branches.id, branchId)).limit(1),
+    db
+      .select()
+      .from(menuConfigs)
+      .where(eq(menuConfigs.branchId, branchId))
+      .limit(1),
+    db
+      .select()
+      .from(socialLinks)
+      .where(eq(socialLinks.branchId, branchId))
+      .orderBy(asc(socialLinks.displayOrder)),
+    db
+      .select()
+      .from(menuPages)
+      .where(eq(menuPages.branchId, branchId))
+      .orderBy(asc(menuPages.displayOrder)),
+  ]);
 
+  const branch = branchResult[0];
+  const config = configResult[0];
   if (!branch) return null;
 
-  const [config] = await db
-    .select()
-    .from(menuConfigs)
-    .where(eq(menuConfigs.branchId, branchId))
-    .limit(1);
+  // 2. If there are pages, fetch ALL categories for ALL pages in ONE query
+  let allCategories: (typeof categories.$inferSelect)[] = [];
+  if (pages.length > 0) {
+    const pageIds = pages.map((p) => p.id);
+    allCategories = await db
+      .select()
+      .from(categories)
+      .where(inArray(categories.pageId, pageIds))
+      .orderBy(asc(categories.displayOrder));
+  }
 
-  const links = await db
-    .select()
-    .from(socialLinks)
-    .where(eq(socialLinks.branchId, branchId))
-    .orderBy(asc(socialLinks.displayOrder));
+  // 3. If there are categories, fetch ALL items for ALL categories in ONE query
+  let allItems: (typeof menuItems.$inferSelect)[] = [];
+  if (allCategories.length > 0) {
+    const catIds = allCategories.map((c) => c.id);
+    allItems = await db
+      .select()
+      .from(menuItems)
+      .where(inArray(menuItems.categoryId, catIds))
+      .orderBy(asc(menuItems.displayOrder));
+  }
 
-  const pages = await db
-    .select()
-    .from(menuPages)
-    .where(eq(menuPages.branchId, branchId))
-    .orderBy(asc(menuPages.displayOrder));
+  // 4. Group items by categoryId (in-memory, instant)
+  const itemsByCategoryId = new Map<
+    string,
+    (typeof menuItems.$inferSelect)[]
+  >();
+  for (const item of allItems) {
+    const list = itemsByCategoryId.get(item.categoryId) ?? [];
+    list.push(item);
+    itemsByCategoryId.set(item.categoryId, list);
+  }
 
-  const pagesData = await Promise.all(
-    pages.map(async (page) => {
-      const cats = await db
-        .select()
-        .from(categories)
-        .where(eq(categories.pageId, page.id))
-        .orderBy(asc(categories.displayOrder));
+  // 5. Group categories by pageId (in-memory, instant)
+  const catsByPageId = new Map<
+    string,
+    (typeof categories.$inferSelect)[]
+  >();
+  for (const cat of allCategories) {
+    const list = catsByPageId.get(cat.pageId) ?? [];
+    list.push(cat);
+    catsByPageId.set(cat.pageId, list);
+  }
 
-      const catsWithItems = await Promise.all(
-        cats.map(async (cat) => {
-          const items = await db
-            .select()
-            .from(menuItems)
-            .where(eq(menuItems.categoryId, cat.id))
-            .orderBy(asc(menuItems.displayOrder));
+  // 6. Assemble final data — zero DB calls, pure in-memory mapping
+  const pagesData = pages.map((page) => {
+    const pageCats = catsByPageId.get(page.id) ?? [];
 
-          return {
-            id: cat.id,
-            nameMr: cat.nameMr,
-            nameEn: cat.nameEn,
-            columnSide: cat.columnSide,
-            displayOrder: cat.displayOrder,
-            isVisible: cat.isVisible,
-            items: items.map((item) => ({
-              id: item.id,
-              nameMr: item.nameMr,
-              nameEn: item.nameEn,
-              descriptionMr: item.descriptionMr,
-              descriptionEn: item.descriptionEn,
-              price: item.price,
-              isVeg: item.isVeg,
-              isAvailable: item.isAvailable,
-              imageUrl: item.imageUrl,
-              displayOrder: item.displayOrder,
-            })),
-          };
-        })
-      );
-
+    const catsWithItems = pageCats.map((cat) => {
+      const catItems = itemsByCategoryId.get(cat.id) ?? [];
       return {
-        id: page.id,
-        titleMr: page.titleMr,
-        titleEn: page.titleEn,
-        category: page.category,
-        bottomTextMr: page.bottomTextMr,
-        bottomTextEn: page.bottomTextEn,
-        image1Url: page.image1Url,
-        image2Url: page.image2Url,
-        displayOrder: page.displayOrder,
-        leftColumn: catsWithItems.filter((c) => c.columnSide === "left"),
-        rightColumn: catsWithItems.filter((c) => c.columnSide === "right"),
+        id: cat.id,
+        nameMr: cat.nameMr,
+        nameEn: cat.nameEn,
+        columnSide: cat.columnSide,
+        displayOrder: cat.displayOrder,
+        isVisible: cat.isVisible,
+        items: catItems.map((item) => ({
+          id: item.id,
+          nameMr: item.nameMr,
+          nameEn: item.nameEn,
+          descriptionMr: item.descriptionMr,
+          descriptionEn: item.descriptionEn,
+          price: item.price,
+          isVeg: item.isVeg,
+          isAvailable: item.isAvailable,
+          imageUrl: item.imageUrl,
+          displayOrder: item.displayOrder,
+        })),
       };
-    })
-  );
+    });
+
+    return {
+      id: page.id,
+      titleMr: page.titleMr,
+      titleEn: page.titleEn,
+      category: page.category,
+      bottomTextMr: page.bottomTextMr,
+      bottomTextEn: page.bottomTextEn,
+      image1Url: page.image1Url,
+      image2Url: page.image2Url,
+      displayOrder: page.displayOrder,
+      leftColumn: catsWithItems.filter((c) => c.columnSide === "left"),
+      rightColumn: catsWithItems.filter((c) => c.columnSide === "right"),
+    };
+  });
 
   return {
     id: branch.id,
