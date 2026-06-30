@@ -1,22 +1,19 @@
 import { redirect } from "next/navigation";
 
 import { SocialLinksForm } from "@/components/admin/social-links-form";
-import {
-  redirectToBranchPicker,
-  requireAdminBranchId,
-  requireAuth,
-} from "@/lib/auth-helpers";
+import { requireAuth, getAdminBranchId } from "@/lib/auth-helpers";
 import { getBranchMenuData } from "@/lib/db/queries";
 
 export default async function SocialPage() {
-  const session = await requireAuth();
-  const branchId = await requireAdminBranchId("/admin/social");
+  await requireAuth();
+  const branchId = await getAdminBranchId();
+
+  if (!branchId) {
+    redirect("/admin/login");
+  }
 
   const data = await getBranchMenuData(branchId);
   if (!data) {
-    if (session.user.role === "superadmin") {
-      redirectToBranchPicker("/admin/social");
-    }
     redirect("/admin/dashboard");
   }
 

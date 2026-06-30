@@ -35,6 +35,10 @@ export default function LoginPage() {
       toast.error(result.error);
       setIsLoading(false);
     } else {
+      // Store role in localStorage for sidebar rendering
+      if (result?.role) {
+        localStorage.setItem("admin_role", result.role);
+      }
       toast.success("Login successful");
       router.push("/admin/dashboard");
       router.refresh();

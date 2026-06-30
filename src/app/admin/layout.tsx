@@ -5,7 +5,7 @@ import { AdminHeader } from "@/components/admin/admin-header";
 import { AdminLanguageProvider } from "@/components/admin/admin-language-provider";
 import { auth } from "@/lib/auth";
 import { getAdminBranchId } from "@/lib/auth-helpers";
-import { getBranchMenuData, getBranchForAdmin } from "@/lib/db/queries";
+import { getBranchMenuData } from "@/lib/db/queries";
 
 export default async function AdminLayout({
   children,
@@ -18,7 +18,6 @@ export default async function AdminLayout({
     return <>{children}</>;
   }
 
-  const isSuperAdmin = session.user.role === "superadmin";
   let branchName: string | undefined;
   let branchSlug: string | undefined;
 
@@ -28,11 +27,6 @@ export default async function AdminLayout({
     const data = await getBranchMenuData(branchId);
     branchName = data?.nameMr;
     branchSlug = data?.slug;
-  } else if (!isSuperAdmin) {
-    const branch = await getBranchForAdmin(session.user.id, session.user.role);
-    if (!branch) {
-      redirect("/admin/login");
-    }
   }
 
   return (
@@ -43,7 +37,6 @@ export default async function AdminLayout({
           userRole={session.user.role}
           branchName={branchName}
           branchSlug={branchSlug}
-          isSuperAdmin={isSuperAdmin}
         />
         <main className="min-h-screen lg:pl-64">
           <AdminHeader />

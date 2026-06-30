@@ -17,7 +17,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { signOutAction } from "@/lib/actions/auth";
@@ -28,7 +28,6 @@ interface AdminSidebarProps {
   userRole: string;
   branchName?: string;
   branchSlug?: string;
-  isSuperAdmin: boolean;
 }
 
 const navItems = [
@@ -90,10 +89,18 @@ export function AdminSidebar({
   userRole,
   branchName,
   branchSlug,
-  isSuperAdmin,
 }: AdminSidebarProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+
+  // Read role from localStorage (set at login time)
+  useEffect(() => {
+    const storedRole = localStorage.getItem("admin_role");
+    // Use stored role if available, fallback to server-provided role
+    const role = storedRole || userRole;
+    setIsSuperAdmin(role === "superadmin");
+  }, [userRole]);
 
   const items = isSuperAdmin ? [...navItems, ...superNavItems] : navItems;
 
@@ -161,7 +168,12 @@ export function AdminSidebar({
           <p className="text-sm font-medium">{userName}</p>
           <p className="text-xs capitalize text-muted-foreground">{userRole}</p>
         </div>
-        <form action={signOutAction}>
+        <form
+          action={signOutAction}
+          onSubmit={() => {
+            localStorage.removeItem("admin_role");
+          }}
+        >
           <Button
             type="submit"
             variant="ghost"

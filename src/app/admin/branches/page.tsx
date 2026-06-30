@@ -10,17 +10,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SelectBranchButton } from "@/components/admin/select-branch-button";
-import { normalizeAdminNextPath, requireSuperAdmin } from "@/lib/auth-helpers";
+import { requireSuperAdmin } from "@/lib/auth-helpers";
 import { getAllBranches, getAllUsers } from "@/lib/db/queries";
 
-export default async function BranchesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ pick?: string; next?: string }>;
-}) {
+export default async function BranchesPage() {
   await requireSuperAdmin();
-  const { pick, next } = await searchParams;
-  const nextPath = normalizeAdminNextPath(next);
   const [branches, users] = await Promise.all([
     getAllBranches(),
     getAllUsers(),
@@ -39,14 +33,6 @@ export default async function BranchesPage({
           <Link href="/admin/branches/new">Add branch</Link>
         </Button>
       </div>
-
-      {pick === "1" && (
-        <Card className="mb-6 border-primary/30 bg-primary/5">
-          <CardContent className="py-4 text-sm">
-            Select a branch below to start editing its menu.
-          </CardContent>
-        </Card>
-      )}
 
       <div className="grid gap-4 md:grid-cols-2">
         {branches.map((branch) => {
@@ -78,7 +64,7 @@ export default async function BranchesPage({
                 <div className="flex gap-2">
                   <SelectBranchButton
                     branchId={branch.id}
-                    nextPath={nextPath}
+                    nextPath="/admin/dashboard"
                   />
                   <Button variant="outline" size="sm" asChild>
                     <Link href={`/menu/${branch.slug}`} target="_blank">
