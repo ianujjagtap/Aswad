@@ -115,7 +115,7 @@ const socialLinkSchema = z.object({
 
 export async function saveSocialLinks(
   branchId: string,
-  links: Omit<z.infer<typeof socialLinkSchema>, "branchId">[]
+  links: Omit<z.infer<typeof socialLinkSchema>, "branchId">[],
 ) {
   await assertBranchAccess(branchId);
 
@@ -169,7 +169,7 @@ export async function createMenuPage(data: z.infer<typeof pageSchema>) {
 export async function updateMenuPage(
   pageId: string,
   branchId: string,
-  data: Partial<z.infer<typeof pageSchema>>
+  data: Partial<z.infer<typeof pageSchema>>,
 ) {
   await assertBranchAccess(branchId);
 
@@ -229,7 +229,12 @@ export async function createCategory(data: z.infer<typeof categorySchema>) {
 export async function updateCategory(
   categoryId: string,
   branchId: string,
-  data: { nameMr: string; nameEn: string; columnSide?: "left" | "right"; isVisible?: boolean }
+  data: {
+    nameMr: string;
+    nameEn: string;
+    columnSide?: "left" | "right";
+    isVisible?: boolean;
+  },
 ) {
   await assertBranchAccess(branchId);
 
@@ -293,7 +298,7 @@ export async function createMenuItem(data: z.infer<typeof itemSchema>) {
 export async function updateMenuItem(
   itemId: string,
   branchId: string,
-  data: Partial<Omit<z.infer<typeof itemSchema>, "categoryId" | "branchId">>
+  data: Partial<Omit<z.infer<typeof itemSchema>, "categoryId" | "branchId">>,
 ) {
   await assertBranchAccess(branchId);
 
@@ -324,7 +329,9 @@ export async function deleteMenuItem(itemId: string, branchId: string) {
 
 export async function saveFullMenu(branchId: string, payload: string) {
   await assertBranchAccess(branchId);
-  const data = JSON.parse(payload) as Awaited<ReturnType<typeof getBranchMenuData>>;
+  const data = JSON.parse(payload) as Awaited<
+    ReturnType<typeof getBranchMenuData>
+  >;
 
   if (!data) return { error: "Invalid data" };
 
@@ -408,13 +415,13 @@ export async function createBranch(data: z.infer<typeof createBranchSchema>) {
   }
 }
 
-export async function assignBranchAdmin(branchId: string, adminId: string | null) {
+export async function assignBranchAdmin(
+  branchId: string,
+  adminId: string | null,
+) {
   await requireSuperAdmin();
 
-  await db
-    .update(branches)
-    .set({ adminId })
-    .where(eq(branches.id, branchId));
+  await db.update(branches).set({ adminId }).where(eq(branches.id, branchId));
 
   revalidatePath("/admin/branches");
   return { success: true };
@@ -464,7 +471,9 @@ export async function setAdminBranch(branchId: string) {
   cookieStore.set(ADMIN_BRANCH_COOKIE, branchId, {
     httpOnly: true,
     sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
     path: "/",
+    maxAge: 60 * 60 * 24 * 30, // 30 days
   });
   return { success: true };
 }
