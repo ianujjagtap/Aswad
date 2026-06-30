@@ -22,9 +22,24 @@ export async function generateMetadata({
     title: `आस्वाद | ${branch.nameMr} Menu`,
     description: `${branch.nameEn} - Digital menu. ${branch.addressEn}. Ph. ${branch.phone}`,
     openGraph: {
-      title: `${branch.nameEn} | Menu`,
-      description: `${branch.nameMr} - Digital menu card`,
+      title: `${branch.nameEn} | Aaswad Shahi Biryani`,
+      description: `${branch.nameMr} - Authentic Biryani & Indian Cuisine. Digital menu card.`,
       type: "website",
+      siteName: "Aaswad Shahi Biryani",
+      images: [
+        {
+          url: "/Aaswad-logo.jpeg",
+          width: 1200,
+          height: 630,
+          alt: `${branch.nameMr} - Aaswad Shahi Biryani`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${branch.nameEn} | Aaswad Shahi Biryani`,
+      description: `${branch.nameMr} - Authentic Biryani & Indian Cuisine.`,
+      images: ["/Aaswad-logo.jpeg"],
     },
   };
 }

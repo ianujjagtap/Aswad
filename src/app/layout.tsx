@@ -77,7 +77,10 @@ const mukta = Mukta({
   display: "swap",
 });
 
+const siteUrl = process.env.AUTH_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "आस्वाद शाही बिर्याणी | Aaswad Shahi Biryani",
   description:
     "आस्वाद शाही बिर्याणी - Authentic Biryani & Indian Cuisine. View our digital menu card.",
@@ -86,6 +89,23 @@ export const metadata: Metadata = {
     description:
       "Authentic Biryani & Indian Cuisine. View our digital menu card.",
     type: "website",
+    url: siteUrl,
+    siteName: "Aaswad Shahi Biryani",
+    images: [
+      {
+        url: "/Aaswad-logo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "आस्वाद शाही बिर्याणी",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "आस्वाद शाही बिर्याणी | Aaswad Shahi Biryani",
+    description:
+      "Authentic Biryani & Indian Cuisine. View our digital menu card.",
+    images: ["/Aaswad-logo.jpeg"],
   },
 };
 
