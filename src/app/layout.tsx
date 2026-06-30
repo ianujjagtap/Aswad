@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_Devanagari, Yatra_One, Rozha_One, Mukta, Amita, Cinzel, Cinzel_Decorative } from "next/font/google";
+import {
+  Inter,
+  Noto_Sans_Devanagari,
+  Yatra_One,
+  Rozha_One,
+  Mukta,
+  Amita,
+  Cinzel,
+  Cinzel_Decorative,
+} from "next/font/google";
 import localFont from "next/font/local";
 
 import { Toaster } from "@/components/ui/sonner";
@@ -91,7 +100,7 @@ export default function RootLayout({
       className={`${inter.variable} ${notoDevanagari.variable} ${yatraOne.variable} ${rozhaOne.variable} ${mukta.variable} ${amsManthan.variable} ${amita.variable} ${cinzel.variable} ${cinzelDec.variable}`}
       suppressHydrationWarning
     >
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

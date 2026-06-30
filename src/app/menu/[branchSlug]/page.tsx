@@ -19,7 +19,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${branch.nameEn} | ${branch.nameMr} Menu`,
+    title: `आस्वाद | ${branch.nameMr} Menu`,
     description: `${branch.nameEn} - Digital menu. ${branch.addressEn}. Ph. ${branch.phone}`,
     openGraph: {
       title: `${branch.nameEn} | Menu`,
