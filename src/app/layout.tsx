@@ -77,7 +77,14 @@ const mukta = Mukta({
   display: "swap",
 });
 
-const siteUrl = process.env.AUTH_URL ?? "http://localhost:3000";
+// VERCEL_PROJECT_PRODUCTION_URL is set automatically by Vercel on every deployment
+// (e.g. "aswad-liart.vercel.app"). Falls back to AUTH_URL for local dev.
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : (process.env.AUTH_URL ?? "http://localhost:3000");
+
+// Absolute URL so WhatsApp / Telegram / iMessage crawlers never get a relative path
+export const OG_IMAGE = `${siteUrl}/Aaswad-logo.jpeg`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -91,21 +98,14 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Aaswad Shahi Biryani",
-    images: [
-      {
-        url: "/Aaswad-logo.jpeg",
-        width: 1200,
-        height: 630,
-        alt: "आस्वाद शाही बिर्याणी",
-      },
-    ],
+    images: [{ url: OG_IMAGE, alt: "आस्वाद शाही बिर्याणी" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "आस्वाद शाही बिर्याणी | Aaswad Shahi Biryani",
     description:
       "Authentic Biryani & Indian Cuisine. View our digital menu card.",
-    images: ["/Aaswad-logo.jpeg"],
+    images: [OG_IMAGE],
   },
 };
 

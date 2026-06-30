@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { OG_IMAGE } from "@/app/layout";
 import { getBranchBySlug } from "@/lib/db/queries";
 
 import { MenuCard } from "./menu-card";
@@ -27,19 +28,14 @@ export async function generateMetadata({
       type: "website",
       siteName: "Aaswad Shahi Biryani",
       images: [
-        {
-          url: "/Aaswad-logo.jpeg",
-          width: 1200,
-          height: 630,
-          alt: `${branch.nameMr} - Aaswad Shahi Biryani`,
-        },
+        { url: OG_IMAGE, alt: `${branch.nameMr} - Aaswad Shahi Biryani` },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${branch.nameEn} | Aaswad Shahi Biryani`,
       description: `${branch.nameMr} - Authentic Biryani & Indian Cuisine.`,
-      images: ["/Aaswad-logo.jpeg"],
+      images: [OG_IMAGE],
     },
   };
 }
