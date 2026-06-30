@@ -1,16 +1,24 @@
 import { redirect } from "next/navigation";
 
 import { CustomizeForm } from "@/components/admin/customize-form";
-import { getAdminBranchId, requireAuth } from "@/lib/auth-helpers";
+import {
+  redirectToBranchPicker,
+  requireAdminBranchId,
+  requireAuth,
+} from "@/lib/auth-helpers";
 import { getBranchMenuData } from "@/lib/db/queries";
 
 export default async function CustomizePage() {
-  await requireAuth();
-  const branchId = await getAdminBranchId();
-  if (!branchId) redirect("/admin/branches?pick=1");
+  const session = await requireAuth();
+  const branchId = await requireAdminBranchId("/admin/customize");
 
   const data = await getBranchMenuData(branchId);
-  if (!data) redirect("/admin/dashboard");
+  if (!data) {
+    if (session.user.role === "superadmin") {
+      redirectToBranchPicker("/admin/customize");
+    }
+    redirect("/admin/dashboard");
+  }
 
   return <CustomizeForm data={data} />;
 }

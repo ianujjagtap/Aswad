@@ -1,31 +1,34 @@
 import { redirect } from "next/navigation";
 
-import { getAdminBranchId, requireAuth } from "@/lib/auth-helpers";
+import {
+  redirectToBranchPicker,
+  requireAdminBranchId,
+  requireAuth,
+} from "@/lib/auth-helpers";
 import { getBranchMenuData, getBranchStats } from "@/lib/db/queries";
 import { DashboardClient } from "@/components/admin/dashboard-client";
 
 export default async function DashboardPage() {
   const session = await requireAuth();
-  const branchId = await getAdminBranchId();
-
-  if (!branchId && session.user.role === "superadmin") {
-    redirect("/admin/branches?pick=1");
-  }
-
-  if (!branchId) redirect("/admin/login");
+  const branchId = await requireAdminBranchId("/admin/dashboard");
 
   const [data, stats] = await Promise.all([
     getBranchMenuData(branchId),
     getBranchStats(branchId),
   ]);
 
-  if (!data) redirect("/admin/branches");
+  if (!data) {
+    if (session.user.role === "superadmin") {
+      redirectToBranchPicker("/admin/dashboard");
+    }
+    redirect("/admin/login");
+  }
 
   return (
-    <DashboardClient 
-      sessionName={session.user.name ?? "Admin"} 
-      data={data} 
-      stats={stats} 
+    <DashboardClient
+      sessionName={session.user.name ?? "Admin"}
+      data={data}
+      stats={stats}
     />
   );
 }

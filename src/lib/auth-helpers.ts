@@ -5,6 +5,23 @@ import { auth } from "@/lib/auth";
 import { getAllBranches, getBranchForAdmin } from "@/lib/db/queries";
 import { ADMIN_BRANCH_COOKIE } from "@/lib/constants";
 
+const DEFAULT_ADMIN_NEXT_PATH = "/admin/dashboard";
+
+export function normalizeAdminNextPath(nextPath?: string | null) {
+  if (!nextPath?.startsWith("/admin")) {
+    return DEFAULT_ADMIN_NEXT_PATH;
+  }
+
+  return nextPath;
+}
+
+export function redirectToBranchPicker(
+  nextPath = DEFAULT_ADMIN_NEXT_PATH,
+): never {
+  const safeNextPath = normalizeAdminNextPath(nextPath);
+  redirect(`/admin/branches?pick=1&next=${encodeURIComponent(safeNextPath)}`);
+}
+
 export async function requireAuth() {
   const session = await auth();
   if (!session?.user) redirect("/admin/login");
@@ -22,14 +39,15 @@ export async function getAdminBranchId(): Promise<string | null> {
   const cookieStore = await cookies();
 
   if (session.user.role === "superadmin") {
-    // 1. Prefer the explicitly selected branch cookie
-    const cookieBranch = cookieStore.get(ADMIN_BRANCH_COOKIE)?.value;
-    if (cookieBranch) return cookieBranch;
-
-    // 2. No cookie set — if there is exactly one branch, use it automatically
-    //    so superadmins don't need to "pick" on a fresh session/device.
-    //    (If there are multiple branches they still need to pick one.)
     const branches = await getAllBranches();
+    const cookieBranch = cookieStore.get(ADMIN_BRANCH_COOKIE)?.value;
+
+    // Prefer the selected branch cookie only when it still points to a real branch.
+    if (cookieBranch && branches.some((branch) => branch.id === cookieBranch)) {
+      return cookieBranch;
+    }
+
+    // On a fresh session/device, auto-select when there is exactly one branch.
     if (branches.length === 1) return branches[0].id;
 
     return null;
@@ -39,14 +57,19 @@ export async function getAdminBranchId(): Promise<string | null> {
   return branch?.id ?? null;
 }
 
-export async function requireAdminBranchId(): Promise<string> {
+export async function requireAdminBranchId(
+  nextPath = DEFAULT_ADMIN_NEXT_PATH,
+): Promise<string> {
+  const session = await requireAuth();
   const branchId = await getAdminBranchId();
+
   if (!branchId) {
-    if ((await requireAuth()).user.role === "superadmin") {
-      redirect("/admin/branches?pick=1");
+    if (session.user.role === "superadmin") {
+      redirectToBranchPicker(nextPath);
     }
     redirect("/admin/dashboard");
   }
+
   return branchId;
 }
 

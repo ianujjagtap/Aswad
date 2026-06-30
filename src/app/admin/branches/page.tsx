@@ -10,17 +10,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { requireSuperAdmin } from "@/lib/auth-helpers";
+import { normalizeAdminNextPath, requireSuperAdmin } from "@/lib/auth-helpers";
 import { setAdminBranch } from "@/lib/actions/admin";
 import { getAllBranches, getAllUsers } from "@/lib/db/queries";
 
 export default async function BranchesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ pick?: string }>;
+  searchParams: Promise<{ pick?: string; next?: string }>;
 }) {
   await requireSuperAdmin();
-  const { pick } = await searchParams;
+  const { pick, next } = await searchParams;
+  const nextPath = normalizeAdminNextPath(next);
   const [branches, users] = await Promise.all([
     getAllBranches(),
     getAllUsers(),
@@ -30,7 +31,7 @@ export default async function BranchesPage({
     "use server";
     const branchId = formData.get("branchId") as string;
     await setAdminBranch(branchId);
-    redirect("/admin/dashboard");
+    redirect(nextPath);
   }
 
   return (
@@ -63,12 +64,14 @@ export default async function BranchesPage({
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
-                    <CardTitle className="font-[var(--font-devanagari)]">
+                    <CardTitle className="font-(--font-devanagari)">
                       {branch.nameMr}
                     </CardTitle>
                     <CardDescription>{branch.nameEn}</CardDescription>
                   </div>
-                  <Badge variant={branch.isActive ? "secondary" : "destructive"}>
+                  <Badge
+                    variant={branch.isActive ? "secondary" : "destructive"}
+                  >
                     {branch.isActive ? "Active" : "Inactive"}
                   </Badge>
                 </div>

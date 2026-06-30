@@ -1,16 +1,24 @@
 import { redirect } from "next/navigation";
 
 import { QRCodeClient } from "@/components/admin/qr-code-client";
-import { getAdminBranchId, requireAuth } from "@/lib/auth-helpers";
+import {
+  redirectToBranchPicker,
+  requireAdminBranchId,
+  requireAuth,
+} from "@/lib/auth-helpers";
 import { getBranchMenuData } from "@/lib/db/queries";
 
 export default async function QRPage() {
-  await requireAuth();
-  const branchId = await getAdminBranchId();
-  if (!branchId) redirect("/admin/branches?pick=1");
+  const session = await requireAuth();
+  const branchId = await requireAdminBranchId("/admin/qr");
 
   const data = await getBranchMenuData(branchId);
-  if (!data) redirect("/admin/dashboard");
+  if (!data) {
+    if (session.user.role === "superadmin") {
+      redirectToBranchPicker("/admin/qr");
+    }
+    redirect("/admin/dashboard");
+  }
 
   return <QRCodeClient slug={data.slug} branchName={data.nameMr} />;
 }
