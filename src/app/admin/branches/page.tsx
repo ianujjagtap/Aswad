@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,8 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { SelectBranchButton } from "@/components/admin/select-branch-button";
 import { normalizeAdminNextPath, requireSuperAdmin } from "@/lib/auth-helpers";
-import { setAdminBranch } from "@/lib/actions/admin";
 import { getAllBranches, getAllUsers } from "@/lib/db/queries";
 
 export default async function BranchesPage({
@@ -26,13 +25,6 @@ export default async function BranchesPage({
     getAllBranches(),
     getAllUsers(),
   ]);
-
-  async function selectBranch(formData: FormData) {
-    "use server";
-    const branchId = formData.get("branchId") as string;
-    await setAdminBranch(branchId);
-    redirect(nextPath);
-  }
 
   return (
     <div className="px-4 py-8 lg:px-8">
@@ -84,12 +76,10 @@ export default async function BranchesPage({
                   Admin: {admin?.name ?? "Unassigned"} ({admin?.email ?? "—"})
                 </p>
                 <div className="flex gap-2">
-                  <form action={selectBranch}>
-                    <input type="hidden" name="branchId" value={branch.id} />
-                    <Button type="submit" size="sm">
-                      Edit this branch
-                    </Button>
-                  </form>
+                  <SelectBranchButton
+                    branchId={branch.id}
+                    nextPath={nextPath}
+                  />
                   <Button variant="outline" size="sm" asChild>
                     <Link href={`/menu/${branch.slug}`} target="_blank">
                       Preview

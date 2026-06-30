@@ -11,7 +11,6 @@ export function normalizeAdminNextPath(nextPath?: string | null) {
   if (!nextPath?.startsWith("/admin")) {
     return DEFAULT_ADMIN_NEXT_PATH;
   }
-
   return nextPath;
 }
 
@@ -39,15 +38,12 @@ export async function getAdminBranchId(): Promise<string | null> {
   const cookieStore = await cookies();
 
   if (session.user.role === "superadmin") {
-    const branches = await getAllBranches();
+    // Trust the cookie — it was validated when set via the Route Handler
     const cookieBranch = cookieStore.get(ADMIN_BRANCH_COOKIE)?.value;
+    if (cookieBranch) return cookieBranch;
 
-    // Prefer the selected branch cookie only when it still points to a real branch.
-    if (cookieBranch && branches.some((branch) => branch.id === cookieBranch)) {
-      return cookieBranch;
-    }
-
-    // On a fresh session/device, auto-select when there is exactly one branch.
+    // No cookie yet — auto-select if there is exactly one branch
+    const branches = await getAllBranches();
     if (branches.length === 1) return branches[0].id;
 
     return null;
