@@ -275,15 +275,24 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
                   "linear-gradient(180deg, #54040c 0%, #3d0208 40%, #2a0106 100%)",
               }}
             >
-              <div className="mt-6 flex justify-between px-2 text-[9px] font-bold tracking-wider text-amber-500/70">
-                <span>
-                  {locale === "mr" ? "प्रो." : "Prop."}{" "}
-                  {t(locale, branch.proprietorMr, branch.proprietorEn)}
-                </span>
-                <span>{locale === "mr" ? "॥ श्री ॥" : "|| Shri ||"}</span>
-                <span>
-                  {locale === "mr" ? "मो." : "Ph."} {branch.phone}
-                </span>
+              <div className="mt-6 flex justify-between items-start px-2 text-[9px] font-bold tracking-wider text-amber-500/70">
+                <div className="flex flex-col items-start">
+                  <span className="text-[7.5px] opacity-75">{locale === "mr" ? "प्रो." : "Prop."}</span>
+                  {t(locale, branch.proprietorMr, branch.proprietorEn)
+                    ?.split(/[/,]/)
+                    .map((p, idx) => (
+                      <span key={idx} className="whitespace-nowrap">{p.trim()}</span>
+                    ))}
+                </div>
+                <span className="self-center">{locale === "mr" ? "॥ श्री ॥" : "|| Shri ||"}</span>
+                <div className="flex flex-col items-end text-right">
+                  <span className="text-[7.5px] opacity-75">{locale === "mr" ? "मो." : "Ph."}</span>
+                  {branch.phone
+                    ?.split(/[,/]/)
+                    .map((ph, idx) => (
+                      <span key={idx} className="whitespace-nowrap">{ph.trim()}</span>
+                    ))}
+                </div>
               </div>
 
               <div className="relative mt-4.5 flex justify-center">
