@@ -220,39 +220,14 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
           "linear-gradient(175deg, #1a0003 0%, #3d0208 25%, #5a0a14 50%, #3d0208 75%, #1a0003 100%)",
       }}
     >
-      {/* Minimalist Language Toggle */}
-      <div className="fixed left-1/2 top-3 z-50 flex -translate-x-1/2 items-center gap-2 rounded-full border border-[#ffd93d]/20 bg-[#1a0003]/80 px-3 py-1.5 backdrop-blur-md">
-        <button
-          type="button"
-          onClick={() => setLocale("mr")}
-          className="text-[10px] font-medium transition-colors"
-          style={{ color: locale === "mr" ? "#ffd93d" : "rgba(255,217,61,0.5)" }}
-        >
-          मराठी
-        </button>
-        <button
-          type="button"
-          onClick={() => setLocale(locale === "mr" ? "en" : "mr")}
-          className="relative h-4 w-8 rounded-full transition-colors"
-          style={{ background: "rgba(255, 217, 61, 0.2)" }}
-        >
-          <div
-            className="absolute top-0.5 h-3 w-3 rounded-full transition-all duration-300"
-            style={{
-              background: "linear-gradient(135deg, #ffd93d, #daa520)",
-              left: locale === "mr" ? "2px" : "18px",
-            }}
-          />
-        </button>
-        <button
-          type="button"
-          onClick={() => setLocale("en")}
-          className="text-[10px] font-medium transition-colors"
-          style={{ color: locale === "en" ? "#ffd93d" : "rgba(255,217,61,0.5)" }}
-        >
-          ENG
-        </button>
-      </div>
+      {/* Floating Language Toggle */}
+      <button
+        type="button"
+        onClick={() => setLocale(locale === "mr" ? "en" : "mr")}
+        className="fixed right-4 top-4 z-50 flex h-8 w-8 items-center justify-center rounded-full border border-[#ffd93d]/30 bg-[#1a0003]/90 text-[10.5px] font-bold text-[#ffd93d] shadow-[0_0_10px_rgba(255,217,61,0.2)] backdrop-blur-md transition-all active:scale-95"
+      >
+        {locale === "mr" ? "EN" : "म"}
+      </button>
 
       <div className="mx-auto max-w-[440px] px-2.5 py-2">
         <div
