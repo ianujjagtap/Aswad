@@ -277,16 +277,17 @@ export function MenuCard({ branch }: { branch: BranchMenuData }) {
             >
               <div className="mt-6 flex justify-between items-start px-2 text-[9px] font-bold tracking-wider text-amber-500/70">
                 <div className="flex flex-col items-start">
-                  <span className="text-[7.5px] opacity-75">{locale === "mr" ? "प्रो." : "Prop."}</span>
                   {t(locale, branch.proprietorMr, branch.proprietorEn)
                     ?.split(/[/,]/)
                     .map((p, idx) => (
-                      <span key={idx} className="whitespace-nowrap">{p.trim()}</span>
+                      <span key={idx} className="whitespace-nowrap">
+                        {locale === "mr" ? "प्रो. " : "Prop. "}
+                        {p.trim()}
+                      </span>
                     ))}
                 </div>
                 <span className="self-center">{locale === "mr" ? "॥ श्री ॥" : "|| Shri ||"}</span>
                 <div className="flex flex-col items-end text-right">
-                  <span className="text-[7.5px] opacity-75">{locale === "mr" ? "मो." : "Ph."}</span>
                   {branch.phone
                     ?.split(/[,/]/)
                     .map((ph, idx) => (
